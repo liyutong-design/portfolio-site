@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project — LI YUETONG</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* 详情页专属样式（不污染首页） */
+        .detail {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 120px var(--gutter) 80px;
+            text-align: center;
+        }
+        .detail__num {
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 0.3em;
+            text-indent: 0.3em;
+            color: var(--text-faint);
+            margin-bottom: 28px;
+        }
+        .detail__title {
+            font-family: var(--font-serif);
+            font-size: clamp(40px, 8vw, 110px);
+            font-weight: 500;
+            letter-spacing: 0.02em;
+            line-height: 1.05;
+            margin-bottom: 18px;
+        }
+        .detail__cn {
+            font-size: clamp(16px, 2vw, 22px);
+            color: var(--text-soft);
+            margin-bottom: 80px;
+        }
+        .detail__back {
+            font-size: 13px;
+            font-weight: 500;
+            letter-spacing: 0.14em;
+            color: var(--text);
+            position: relative;
+            transition: transform 0.4s var(--ease);
+            display: inline-block;
+        }
+        .detail__back:hover { transform: translateX(-6px); }
+        .detail__soon {
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 0.26em;
+            text-indent: 0.26em;
+            color: var(--text-faint);
+            margin-top: -56px;
+            margin-bottom: 72px;
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="nav">
+        <a href="index.html" class="nav__logo">LI YUETONG</a>
+        <div class="nav__links">
+            <a href="index.html#works" class="nav__link">WORK</a>
+            <a href="index.html#about" class="nav__link">ABOUT</a>
+            <a href="index.html#contact" class="nav__link">CONTACT</a>
+        </div>
+    </nav>
+
+    <main class="detail">
+        <p class="detail__num" id="detail-num">—</p>
+        <h1 class="detail__title" id="detail-title">—</h1>
+        <p class="detail__cn" id="detail-cn">—</p>
+        <p class="detail__soon" id="detail-soon"></p>
+        <a href="index.html#works" class="detail__back">BACK TO WORK ←</a>
+    </main>
+
+    <script>
+        /* 从 URL 读取项目编号，渲染基础信息 */
+        const PROJECTS = {
+            '1': { title: 'AI VISUAL FUSION',     cn: 'AI 多元素视觉融合' },
+            '2': { title: 'COMMERCIAL VISUAL',    cn: 'AI 商业广告视觉' },
+            '3': { title: 'SPATIAL VISION',       cn: 'AI 空间视觉设计' },
+            '4': { title: 'STYLE TRANSFER',       cn: 'AI 风格迁移与角色视觉' },
+            '5': { title: 'AI IMAGE TOOL',        cn: 'AI 生图工具' },
+            '6': { title: 'INTERACTIVE PROJECTS', cn: 'AI 辅助交互项目' },
+            '7': { title: 'AI COMIC & VIDEO',     cn: 'AI 漫剧与视频创作' }
+        };
+
+        /* 首页三大代表作的 Case Study 标题覆盖（详情页下一阶段完整制作） */
+        const CASE_OVERRIDES = {
+            tool:  { num: 'CASE STUDY 01', title: 'AI IMAGE GENERATION TOOL', cn: 'AI 生图工具 · From Prompt to Visual' },
+            story: { num: 'CASE STUDY 02', title: 'INTERACTIVE STORY',         cn: '《我们可以互相嫌弃》 · AI Assisted Interactive Story' },
+            comic: { num: 'CASE STUDY 03', title: 'AI COMIC & VIDEO',          cn: '《穷鬼租客》 · AI Comic & Video Creation' }
+        };
+
+        const params = new URLSearchParams(window.location.search);
+        const id = params.get('id');
+        const caseKey = params.get('case');
+        /* 文游 / 生图工具 / AI 漫剧 / 视觉创作案例已升级为完整 Case Study 页，旧链接直接跳转 */
+        if (caseKey === 'story') { window.location.replace('case-story.html'); }
+        if (caseKey === 'tool')  { window.location.replace('case-tool.html'); }
+        if (caseKey === 'comic') { window.location.replace('case-comic.html'); }
+        if (id === '1') { window.location.replace('case-fusion.html'); }
+        if (id === '2') { window.location.replace('case-commercial.html'); }
+        if (id === '3') { window.location.replace('case-spatial.html'); }
+        if (id === '4') { window.location.replace('case-fashion.html'); }
+        if (id === '5') { window.location.replace('case-spatial-style.html'); }
+        if (id === '6') { window.location.replace('case-character-style.html'); }
+        const p = PROJECTS[id];
+        const co = CASE_OVERRIDES[caseKey];
+
+        if (p || co) {
+            document.getElementById('detail-num').textContent =
+                co ? co.num : 'PROJECT ' + id.padStart(2, '0');
+            document.getElementById('detail-title').textContent = co ? co.title : p.title;
+            document.getElementById('detail-cn').textContent = co ? co.cn : p.cn;
+            document.title = (co ? co.title : p.title) + ' — LI YUETONG';
+            if (co) {
+                document.getElementById('detail-soon').textContent =
+                    'FULL CASE STUDY COMING SOON';
+            }
+        } else {
+            document.getElementById('detail-num').textContent = 'UNKNOWN PROJECT';
+            document.getElementById('detail-title').textContent = '404';
+            document.getElementById('detail-cn').textContent = '未找到该项目';
+        }
+    </script>
+
+</body>
+</html>

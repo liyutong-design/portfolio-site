@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Image Generation Tool — AI 生图工具 / LI YUETONG</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Noto+Serif+SC:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/case-tool.css">
+</head>
+<body class="case-page case-page--tool">
+
+    <!-- ===== Navigation（与首页一致） ===== -->
+    <nav class="nav nav--solid" id="nav">
+        <a href="index.html" class="nav__logo">LI YUETONG</a>
+        <div class="nav__links">
+            <a href="index.html#works" class="nav__link">WORK</a>
+            <a href="index.html#about" class="nav__link">ABOUT</a>
+            <a href="index.html#contact" class="nav__link">CONTACT</a>
+        </div>
+    </nav>
+
+    <main>
+
+        <!-- ============================================================
+             页首：紧凑标题（可操作 Demo 在第 01 节，进入页面即可见）
+             ============================================================ -->
+        <header class="ct-hero ct-hero--compact ct-wrap">
+            <a class="ct-back ct-reveal" href="index.html#works">← BACK TO WORK</a>
+            <p class="ct-kicker ct-reveal">CASE STUDY 01 · AI PRODUCT · 2026</p>
+            <h1 class="ct-hero-title ct-reveal">AI Image<br>Generation Tool</h1>
+            <p class="ct-hero-cn ct-reveal">AI 生图工具 · 作品集交互演示版</p>
+            <p class="ct-hero-sub ct-reveal">Product Design · AI Generation · UI/UX · Frontend / Backend Implementation</p>
+        </header>
+
+        <!-- ============================================================
+             01 TOOL DEMO — 可操作的工具演示（纯前端，在线 API 已关闭）
+             ============================================================ -->
+        <section class="ct-sec ct-sec--flush" id="demo">
+            <div class="ct-wrap">
+                <header class="ct-sec-head ct-reveal">
+                    <span class="ct-sec-num">01</span>
+                    <div>
+                        <p class="section-label">TOOL DEMO · INTERACTIVE</p>
+                        <h2 class="ct-sec-title">工具演示</h2>
+                    </div>
+                </header>
+                <p class="ct-sec-lead ct-reveal">下方为可直接操作的作品集演示版：人设模板、全部选项数据与提示词拼接顺序均还原自真实工具。在线 API 调用已关闭，任何操作都不会产生网络请求。</p>
+
+                <p class="td-note-line ct-reveal">作品集交互演示版 · 在线 API 调用已关闭 · 界面与数据还原自真实工具</p>
+                <div class="td-frame ct-reveal">
+                    <div class="td-browserbar">
+                        <i></i><i></i><i></i>
+                        <div class="td-browserurl"><b>AI 生图工具</b> · portfolio demo · <span>在线 API 已关闭</span></div>
+                    </div>
+                    <div class="td-app">
+                        <div id="tdRoot"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================
+             02 GENERATED OUTPUT — 真实工具实际生成的作品案例
+             ============================================================ -->
+        <section class="ct-sec ct-sec--flush" id="output">
+            <div class="ct-wrap">
+                <header class="ct-sec-head ct-reveal">
+                    <span class="ct-sec-num">02</span>
+                    <div>
+                        <p class="section-label">GENERATED WITH THIS TOOL</p>
+                        <h2 class="ct-sec-title">生成效果</h2>
+                    </div>
+                </header>
+                <p class="ct-sec-lead ct-reveal">以下四张均为真实工具实际生成的作品；上方 Demo 点击「生成图片」时展示的也是这批真实案例，而非临时生成的图片。</p>
+
+                <figure class="ct-out-feature ct-reveal">
+                    <div class="ct-out-frame">
+                        <img src="assets/tool/output-1.jpg" loading="lazy"
+                             data-parallax="0.04" data-scale="1.05"
+                             alt="工具生成结果 01：白发天使少女，云端教堂、白玫瑰与羽翼">
+                    </div>
+                    <figcaption>
+                        <span class="ct-out-no">01</span>
+                        <span>白发天使 · 云端教堂 · 白玫瑰与羽翼｜JPEG 2471KB · 生成耗时 45s</span>
+                    </figcaption>
+                </figure>
+
+                <div class="ct-out-row">
+                    <figure class="ct-out-item ct-reveal">
+                        <div class="ct-out-frame"><img src="assets/tool/output-2.jpg" loading="lazy" alt="工具生成结果 02：月光森林中的蓝发精灵少女"></div>
+                        <figcaption><span class="ct-out-no">02</span><span>月光森林 · 蓝发精灵少女</span></figcaption>
+                    </figure>
+                    <figure class="ct-out-item ct-reveal">
+                        <div class="ct-out-frame"><img src="assets/tool/output-3.jpg" loading="lazy" alt="工具生成结果 03：红月教堂中的暗黑恶魔角色"></div>
+                        <figcaption><span class="ct-out-no">03</span><span>红月教堂 · 暗黑恶魔角色</span></figcaption>
+                    </figure>
+                    <figure class="ct-out-item ct-reveal">
+                        <div class="ct-out-frame"><img src="assets/tool/output-4.jpg" loading="lazy" alt="工具生成结果 04：樱花校园中的粉色双马尾少女"></div>
+                        <figcaption><span class="ct-out-no">04</span><span>樱花校园 · 粉色双马尾少女</span></figcaption>
+                    </figure>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================
+             03 PROJECT OVERVIEW — 解决什么问题、主要功能
+             ============================================================ -->
+        <section class="ct-sec ct-wrap" id="overview">
+            <header class="ct-sec-head ct-reveal">
+                <span class="ct-sec-num">03</span>
+                <div>
+                    <p class="section-label">PROJECT OVERVIEW</p>
+                    <h2 class="ct-sec-title">项目概述</h2>
+                </div>
+            </header>
+
+            <p class="ct-bg-quote ct-reveal">
+                本项目尝试将 AI 图像生成流程整合为更直观的可视化工具。通过人物模板、属性参数、配饰与画面设置等选项自动组合提示词，并完成生成任务提交、结果获取与展示，让复杂的 AI 生图流程转化为更直观的操作体验。
+            </p>
+
+            <div class="ct-up-grid ct-block-gap">
+                <div class="ct-up-users ct-reveal">
+                    <p class="ct-up-label">目标用户</p>
+                    <ul class="ct-up-list">
+                        <li><span class="ct-up-idx">U1</span>内容创作者</li>
+                        <li><span class="ct-up-idx">U2</span>设计初学者</li>
+                        <li><span class="ct-up-idx">U3</span>需要快速生成视觉素材的用户</li>
+                    </ul>
+                </div>
+                <div class="ct-up-pains ct-reveal">
+                    <p class="ct-up-label">对应痛点</p>
+                    <ul class="ct-up-list">
+                        <li><span class="ct-up-idx">P1</span>复杂工具学习成本高</li>
+                        <li><span class="ct-up-idx">P2</span>参数和生成流程不够直观</li>
+                        <li><span class="ct-up-idx">P3</span>生成结果与操作过程割裂</li>
+                        <li><span class="ct-up-idx">P4</span>非专业用户需要更轻量的入口</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="ct-goals ct-block-gap">
+                <div class="ct-goal ct-reveal">
+                    <span class="ct-goal-num">01</span>
+                    <h3>简化生图流程</h3>
+                </div>
+                <div class="ct-goal ct-reveal">
+                    <span class="ct-goal-num">02</span>
+                    <h3>降低基础操作门槛</h3>
+                </div>
+                <div class="ct-goal ct-reveal">
+                    <span class="ct-goal-num">03</span>
+                    <h3>建立清晰的输入—生成—结果反馈</h3>
+                </div>
+                <div class="ct-goal ct-reveal">
+                    <span class="ct-goal-num">04</span>
+                    <h3>完成可实际运行的轻量级工具</h3>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================
+             04 CREATION PROCESS — 需求梳理 → 功能规划 → 界面设计
+                 → 提示词组合 → API 接入 → TRAE 辅助实现
+                 → 测试调整 → 完成 Demo
+             ============================================================ -->
+        <section class="ct-sec ct-wrap" id="creation">
+            <header class="ct-sec-head ct-reveal">
+                <span class="ct-sec-num">04</span>
+                <div>
+                    <p class="section-label">CREATION PROCESS</p>
+                    <h2 class="ct-sec-title">实现流程</h2>
+                </div>
+            </header>
+            <p class="ct-sec-lead ct-reveal">从需求梳理到完成 Demo 的八个阶段，以编号与细线串联，呈现工具从构思到落地的真实制作过程。</p>
+
+            <ol class="ct-devflow ct-reveal">
+                <li><span class="ct-dev-dot">01</span><span class="ct-dev-name">需求梳理</span></li>
+                <li><span class="ct-dev-dot">02</span><span class="ct-dev-name">功能规划</span></li>
+                <li><span class="ct-dev-dot">03</span><span class="ct-dev-name">界面设计</span></li>
+                <li><span class="ct-dev-dot">04</span><span class="ct-dev-name">提示词组合</span></li>
+                <li><span class="ct-dev-dot">05</span><span class="ct-dev-name">API 接入</span></li>
+                <li><span class="ct-dev-dot">06</span><span class="ct-dev-name">TRAE 辅助实现</span></li>
+                <li><span class="ct-dev-dot">07</span><span class="ct-dev-name">测试调整</span></li>
+                <li><span class="ct-dev-dot">08</span><span class="ct-dev-name">完成 Demo</span></li>
+            </ol>
+        </section>
+
+        <!-- ============================================================
+             05 PROJECT RESULT — 完整生图流程 + 作品集可交互 Demo
+             ============================================================ -->
+        <section class="ct-sec ct-wrap" id="result">
+            <header class="ct-sec-head ct-reveal">
+                <span class="ct-sec-num">05</span>
+                <div>
+                    <p class="section-label">PROJECT RESULT</p>
+                    <h2 class="ct-sec-title">项目成果</h2>
+                </div>
+            </header>
+
+            <p class="ct-bg-quote ct-reveal">
+                完成从人物参数选择、提示词组合、生成任务提交到结果展示的完整生图流程，并制作可交互 Demo 用于作品集展示。在项目过程中实践了 AI 生图、提示词设计、API 接入、AI 辅助开发及功能测试等流程。
+            </p>
+
+            <div class="ct-keywords ct-reveal">
+                <span>AI Image Generation</span>
+                <span>Prompt Design</span>
+                <span>API Integration</span>
+                <span>TRAE</span>
+                <span>Testing</span>
+            </div>
+        </section>
+
+        <!-- ===== 统一底部导航：BACK TO HOME + NEXT PROJECT ===== -->
+        <nav class="pnav">
+            <div class="pnav-inner">
+                <a class="pnav-link pnav-back" href="index.html">
+                    <span class="pnav-label">← BACK TO HOME</span>
+                    <span class="pnav-name">返回首页</span>
+                </a>
+                <a class="pnav-link pnav-next" href="case-story.html">
+                    <span class="pnav-label">NEXT PROJECT</span>
+                    <span class="pnav-name">《我们可以互相嫌弃》 →</span>
+                </a>
+            </div>
+        </nav>
+
+        <footer class="ct-footer ct-wrap">
+            <p>© 2026 LI YUETONG · AI VISUAL CREATOR</p>
+        </footer>
+
+    </main>
+
+    <script src="js/nav-memory.js"></script>
+    <script src="js/case-tool.js"></script>
+</body>
+</html>

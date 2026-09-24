@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visual Fusion — LI YUETONG</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Noto+Serif+SC:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        :root { --vn-ink:#1b1714; }
+        body.case-page { background:var(--bg); color:var(--text); padding-top:88px; overflow-x:clip; }
+        .vn-wrap { width:100%; max-width:var(--container); margin:0 auto; padding:0 var(--gutter); }
+        .vn-reveal { opacity:0; transform:translateY(30px); transition:opacity .9s var(--ease), transform .9s var(--ease); }
+        .vn-reveal.in { opacity:1; transform:none; }
+        .vn-back { display:inline-block; font-size:11px; font-weight:500; letter-spacing:.24em; color:var(--text-soft); margin-bottom:48px; }
+        .vn-back:hover { color:var(--text); transform:translateX(-5px); }
+        .vn-back { transition:color .4s var(--ease), transform .4s var(--ease); }
+        .vn-kicker { font-size:10.5px; font-weight:500; letter-spacing:.24em; color:var(--text-faint); margin-bottom:26px; }
+        .vn-title { font-family:var(--font-serif); font-weight:600; font-size:clamp(34px,4.2vw,62px); line-height:1.1; margin:0; }
+        .vn-cn { margin-top:16px; font-family:"Noto Serif SC",serif; font-size:clamp(19px,1.7vw,25px); }
+        .vn-sub { margin-top:10px; font-family:var(--font-serif); font-style:italic; font-size:clamp(12px,1vw,14px); letter-spacing:.14em; color:var(--text-faint); }
+        .vn-quote { margin-top:30px; font-family:"Noto Serif SC",serif; font-size:clamp(15px,1.2vw,18px); line-height:1.95; color:var(--text); padding-left:20px; border-left:2px solid var(--text); max-width:560px; }
+        .vn-meta { display:flex; flex-wrap:wrap; margin-top:30px; }
+        .vn-meta span { font-size:11px; letter-spacing:.08em; color:var(--text-soft); padding-right:18px; margin-right:18px; border-right:1px solid var(--line); }
+        .vn-meta span:last-child { border-right:none; }
+        .vn-hero { padding-top:clamp(34px,5vw,60px); padding-bottom:72px; border-bottom:1px solid var(--line); }
+        .vn-sec { padding-top:clamp(72px,9vw,120px); }
+        .vn-sec-head { display:flex; align-items:flex-start; gap:28px; margin-bottom:clamp(40px,4vw,60px); }
+        .vn-sec-num { font-family:var(--font-serif); font-style:italic; font-size:clamp(40px,4.6vw,64px); line-height:1; color:var(--text-faint); }
+        .vn-sec-head .section-label { display:block; margin-bottom:14px; }
+        .vn-sec-title { font-family:"Noto Serif SC",serif; font-weight:500; font-size:clamp(28px,3.2vw,44px); line-height:1.15; margin:0; }
+        /* 三组成对作品，每组两图并列 */
+        .vn-group { padding:clamp(36px,4.5vw,60px) 0; border-top:1px solid var(--line); }
+        .vn-group-head { margin-bottom:28px; }
+        .vn-group-head .section-label { display:block; margin-bottom:8px; }
+        .vn-group-title { font-family:"Noto Serif SC",serif; font-weight:500; font-size:clamp(20px,2.2vw,28px); margin:0; }
+        .vn-grid { display:grid; grid-template-columns:1fr 1fr; gap:clamp(16px,2vw,28px); max-width:900px; }
+        .vn-figure { margin:0; }
+        .vn-img { aspect-ratio:2/3; background:var(--bg); border:1px solid #e8e1d4; overflow:hidden; }
+        .vn-img img { display:block; width:100%; height:100%; object-fit:contain; cursor:zoom-in; transition:transform 1s var(--ease); }
+        .vn-figure:hover .vn-img img { transform:scale(1.03); }
+        .vn-figure figcaption { margin-top:10px; font-size:10px; letter-spacing:.2em; color:var(--text-faint); }
+        .vn-footer { margin-top:clamp(70px,8vw,110px); background:var(--vn-ink); padding:34px 0 46px; }
+        .vn-footer-row { display:flex; align-items:center; justify-content:space-between; gap:20px; }
+        .vn-footer .vn-back { margin:0; color:rgba(233,225,213,.6); }
+        .vn-footer .vn-back:hover { color:#f4eee3; }
+        .vn-footer p { margin:0; font-size:10.5px; letter-spacing:.24em; color:rgba(233,225,213,.4); }
+        @media (max-width:720px) {
+            .vn-sec-head { gap:18px; }
+            .vn-grid { grid-template-columns:1fr; }
+            .vn-footer-row { flex-direction:column; text-align:center; }
+        }
+        @media (prefers-reduced-motion:reduce) { .vn-reveal { opacity:1; transform:none; transition:none; } .vn-img img { transition:none; } }
+    </style>
+</head>
+<body class="case-page">
+
+    <nav class="nav nav--solid" id="nav">
+        <a href="index.html" class="nav__logo">LI YUETONG</a>
+        <div class="nav__links">
+            <a href="index.html#works" class="nav__link">WORK</a>
+            <a href="works.html" class="nav__link">VISUAL WORKS</a>
+            <a href="index.html#about" class="nav__link">ABOUT</a>
+            <a href="index.html#contact" class="nav__link">CONTACT</a>
+        </div>
+    </nav>
+
+    <main>
+        <!-- HERO -->
+        <header class="vn-wrap vn-hero">
+            <a class="vn-back vn-reveal" href="works.html">← BACK TO VISUAL WORKS</a>
+            <p class="vn-kicker vn-reveal">VISUAL EXPLORATION 08 · 2026 · VISUAL FUSION</p>
+            <h1 class="vn-title vn-reveal">VISUAL<br>FUSION</h1>
+            <p class="vn-cn vn-reveal">AI视觉融合设计</p>
+            <p class="vn-sub vn-reveal">AI-ASSISTED VISUAL FUSION DESIGN</p>
+            <p class="vn-quote vn-reveal">通过 AI 将不同视觉元素融合为统一画面，在保持各元素特征的同时生成全新的融合视觉，共三组六张作品。</p>
+            <div class="vn-meta vn-reveal">
+                <span>3 组融合作品</span>
+                <span>6 张画面</span>
+                <span>AI 直接生成</span>
+            </div>
+        </header>
+
+        <!-- WORKS -->
+        <section class="vn-sec vn-wrap" id="works">
+            <header class="vn-sec-head vn-reveal">
+                <span class="vn-sec-num">01</span>
+                <div>
+                    <p class="section-label">FUSION WORKS</p>
+                    <h2 class="vn-sec-title">融合作品</h2>
+                </div>
+            </header>
+
+            <article class="vn-group vn-reveal">
+                <div class="vn-group-head">
+                    <p class="section-label">GROUP 01</p>
+                    <h3 class="vn-group-title">第一组视觉融合</h3>
+                </div>
+                <div class="vn-grid">
+                    <figure class="vn-figure">
+                        <div class="vn-img"><img loading="lazy" src="assets/explorations/visual-fusion/vf1.jpg" alt="第一组视觉融合 01"></div>
+                        <figcaption>01</figcaption>
+                    </figure>
+                    <figure class="vn-figure">
+                        <div class="vn-img"><img loading="lazy" src="assets/explorations/visual-fusion/vf2.jpg" alt="第一组视觉融合 02"></div>
+                        <figcaption>02</figcaption>
+                    </figure>
+                </div>
+            </article>
+
+            <article class="vn-group vn-reveal">
+                <div class="vn-group-head">
+                    <p class="section-label">GROUP 02</p>
+                    <h3 class="vn-group-title">第二组视觉融合</h3>
+                </div>
+                <div class="vn-grid">
+                    <figure class="vn-figure">
+                        <div class="vn-img"><img loading="lazy" src="assets/explorations/visual-fusion/vf3.jpg" alt="第二组视觉融合 01"></div>
+                        <figcaption>01</figcaption>
+                    </figure>
+                    <figure class="vn-figure">
+                        <div class="vn-img"><img loading="lazy" src="assets/explorations/visual-fusion/vf4.jpg" alt="第二组视觉融合 02"></div>
+                        <figcaption>02</figcaption>
+                    </figure>
+                </div>
+            </article>
+
+            <article class="vn-group vn-reveal">
+                <div class="vn-group-head">
+                    <p class="section-label">GROUP 03</p>
+                    <h3 class="vn-group-title">第三组视觉融合</h3>
+                </div>
+                <div class="vn-grid">
+                    <figure class="vn-figure">
+                        <div class="vn-img"><img loading="lazy" src="assets/explorations/visual-fusion/vf5.jpg" alt="第三组视觉融合 01"></div>
+                        <figcaption>01</figcaption>
+                    </figure>
+                    <figure class="vn-figure">
+                        <div class="vn-img"><img loading="lazy" src="assets/explorations/visual-fusion/vf6.jpg" alt="第三组视觉融合 02"></div>
+                        <figcaption>02</figcaption>
+                    </figure>
+                </div>
+            </article>
+        </section>
+
+        <!-- ===== 统一底部导航：BACK TO HOME + VIEW ALL WORKS ===== -->
+        <nav class="pnav">
+            <div class="pnav-inner">
+                <a class="pnav-link pnav-back" href="index.html">
+                    <span class="pnav-label">← BACK TO HOME</span>
+                    <span class="pnav-name">返回首页</span>
+                </a>
+                <a class="pnav-link pnav-next" href="works.html">
+                    <span class="pnav-label">VIEW ALL WORKS</span>
+                    <span class="pnav-name">查看全部作品 →</span>
+                </a>
+            </div>
+        </nav>
+
+        <footer class="vn-footer">
+            <div class="vn-wrap vn-footer-row">
+                <p>© 2026 LI YUETONG · AI VISUAL CREATOR</p>
+            </div>
+        </footer>
+    </main>
+
+    <script>
+    (function(){
+        var els = document.querySelectorAll('.vn-reveal');
+        if (!('IntersectionObserver' in window)) { els.forEach(function(e){e.classList.add('in');}); return; }
+        var io = new IntersectionObserver(function(en){ en.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} }); }, {threshold:0.1, rootMargin:'0px 0px -6% 0px'});
+        els.forEach(function(e){ io.observe(e); });
+    })();
+    </script>
+    <script src="js/nav-memory.js"></script>
+    <script src="js/case-lightbox.js"></script>
+</body>
+</html>

@@ -1,0 +1,995 @@
+/* ============================================================
+   CASE STUDY — 《我们可以互相嫌弃》
+   Editorial / warm cream / 独立于首页的专属样式
+   依赖 style.css 的 design tokens / .nav / .section-label
+   ============================================================ */
+
+/* ---------- 角色主题色（取自游戏内真实配色） ---------- */
+:root {
+    --cs-lin:  #E5A23B;
+    --cs-su:   #4F8E7A;
+    --cs-shen: #7A5DA8;
+    --cs-gu:   #C77267;
+}
+
+.case-page {
+    background: var(--bg);
+    color: var(--text);
+    /* 顶部留出固定 nav 的空间 */
+    padding-top: 88px;
+}
+
+/* 页内通用容器 */
+.cs-wrap {
+    max-width: var(--container);
+    margin: 0 auto;
+    padding-left: var(--gutter);
+    padding-right: var(--gutter);
+}
+
+/* ============================================================
+   HERO
+   ============================================================ */
+.cs-hero {
+    padding: clamp(36px, 5vw, 64px) 0 clamp(56px, 7vw, 96px);
+    border-bottom: 1px solid var(--line);
+}
+.cs-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--text-soft);
+    transition: color 0.35s var(--ease), gap 0.35s var(--ease);
+}
+.cs-back:hover { color: var(--text); gap: 16px; }
+
+.cs-hero-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+    gap: clamp(40px, 6vw, 96px);
+    align-items: center;
+    margin-top: clamp(40px, 6vw, 72px);
+}
+.cs-kicker {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+    margin-bottom: 28px;
+}
+.cs-hero-title {
+    font-family: var(--font-serif);
+    font-weight: 500;
+    font-size: clamp(52px, 7.4vw, 108px);
+    line-height: 1.04;
+    letter-spacing: 0.01em;
+    color: var(--text);
+    margin-bottom: 26px;
+}
+.cs-hero-sub {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: clamp(16px, 1.5vw, 21px);
+    letter-spacing: 0.06em;
+    color: var(--text-soft);
+    margin-bottom: 34px;
+}
+.cs-hero-tags {
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    color: var(--text-soft);
+    padding-bottom: 30px;
+    margin-bottom: 30px;
+    border-bottom: 1px solid var(--line);
+}
+.cs-hero-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 0;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    color: var(--text-faint);
+}
+.cs-hero-meta span {
+    display: inline-flex;
+    align-items: center;
+}
+.cs-hero-meta span + span::before {
+    content: '·';
+    margin: 0 14px;
+    color: var(--line);
+}
+
+.cs-hero-figure {
+    position: relative;
+    overflow: hidden;
+    border-radius: 4px;
+    box-shadow: 0 30px 80px rgba(70, 52, 30, 0.16);
+}
+.cs-hero-figure img {
+    width: 100%;
+    aspect-ratio: 1460 / 822;
+    object-fit: cover;
+    will-change: transform;
+}
+.cs-hero-figure .cs-fig-caption {
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    margin: 0;
+    padding: 46px 18px 14px;
+    color: rgba(251, 248, 242, 0.92);
+    background: linear-gradient(180deg, rgba(32,27,22,0), rgba(32,27,22,0.55));
+    pointer-events: none;
+}
+.cs-hero-figure .cs-fig-caption span:last-child { color: rgba(251, 248, 242, 0.72); }
+.cs-fig-caption {
+    display: flex;
+    justify-content: space-between;
+    gap: 18px;
+    margin-top: 14px;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+}
+
+/* ============================================================
+   章节通用结构
+   ============================================================ */
+.cs-sec {
+    padding: clamp(72px, 10vw, 140px) 0;
+    border-bottom: 1px solid var(--line);
+}
+.cs-sec-head {
+    display: grid;
+    grid-template-columns: 110px minmax(0, 1fr);
+    gap: 28px;
+    align-items: start;
+    margin-bottom: clamp(44px, 6vw, 84px);
+}
+.cs-sec-num {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: clamp(30px, 3.4vw, 46px);
+    color: var(--text-faint);
+    line-height: 1;
+    padding-top: 6px;
+}
+.cs-sec-head .section-label { margin-bottom: 12px; }
+.cs-sec-title {
+    font-family: var(--font-serif);
+    font-weight: 400;
+    font-size: clamp(26px, 3vw, 42px);
+    letter-spacing: 0.02em;
+    color: var(--text);
+}
+.cs-sec-lead {
+    grid-column: 2;
+    font-size: 13px;
+    letter-spacing: 0.1em;
+    color: var(--text-faint);
+    margin-top: -52px;
+    margin-bottom: 52px;
+    max-width: 620px;
+    line-height: 1.9;
+}
+
+/* ---------- 入场 ---------- */
+.cs-reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.9s var(--ease), transform 0.9s var(--ease);
+}
+.cs-reveal.in { opacity: 1; transform: none; }
+.cs-reveal[data-d="1"] { transition-delay: 0.08s; }
+.cs-reveal[data-d="2"] { transition-delay: 0.16s; }
+.cs-reveal[data-d="3"] { transition-delay: 0.24s; }
+.cs-reveal[data-d="4"] { transition-delay: 0.32s; }
+
+/* ============================================================
+   01 BACKGROUND
+   ============================================================ */
+.cs-bg-quote {
+    font-family: var(--font-serif);
+    font-size: clamp(23px, 2.7vw, 38px);
+    line-height: 1.62;
+    font-weight: 400;
+    color: var(--text);
+    max-width: 1080px;
+    margin-left: 138px;
+}
+.cs-bg-quote::first-letter {
+    margin-left: 0;
+}
+.cs-bg-sign {
+    margin: 34px 0 0 138px;
+    font-size: 11px;
+    letter-spacing: 0.26em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+}
+
+/* ============================================================
+   02 GOALS —— 编号大字段落，非卡片
+   ============================================================ */
+.cs-goals { border-top: 1px solid var(--line); }
+.cs-goal {
+    display: grid;
+    grid-template-columns: 138px minmax(0, 1fr);
+    gap: 28px;
+    align-items: baseline;
+    padding: clamp(28px, 3.4vw, 46px) 0;
+    border-bottom: 1px solid var(--line);
+}
+.cs-goal-no {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: clamp(26px, 2.6vw, 40px);
+    color: var(--text-faint);
+    transition: color 0.4s var(--ease);
+}
+.cs-goal-txt {
+    font-family: var(--font-serif);
+    font-size: clamp(21px, 2.5vw, 34px);
+    line-height: 1.45;
+    font-weight: 400;
+    color: var(--text);
+    transition: transform 0.5s var(--ease);
+}
+.cs-goal:hover .cs-goal-no { color: var(--text); }
+.cs-goal:hover .cs-goal-txt { transform: translateX(8px); }
+
+/* ============================================================
+   03 CHARACTERS
+   ============================================================ */
+.cs-roster {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: clamp(18px, 2.4vw, 34px);
+}
+.cs-char {
+    cursor: default;
+    transition: opacity 0.5s var(--ease), transform 0.5s var(--ease);
+}
+.cs-roster:hover .cs-char { opacity: 0.32; }
+.cs-roster .cs-char:hover { opacity: 1; }
+.cs-char:nth-child(even) { transform: translateY(44px); }
+.cs-roster:hover .cs-char:nth-child(even):not(:hover) { transform: translateY(44px); }
+
+.cs-char-fig {
+    position: relative;
+    background: linear-gradient(180deg, #F8F2E8 0%, #EFE7DA 100%);
+    border: 1px solid var(--line-soft);
+    border-radius: 4px;
+    overflow: hidden;
+    aspect-ratio: 3 / 4;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+}
+.cs-char-fig::after {
+    content: '';
+    position: absolute;
+    inset: auto 0 0 0;
+    height: 38%;
+    background: linear-gradient(180deg, rgba(236,229,217,0), rgba(236,229,217,0.55));
+    pointer-events: none;
+}
+.cs-char-fig img {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: bottom center;
+    padding: 8% 6% 0;
+    transform: scale(0.985);
+    transition: transform 0.6s var(--ease);
+    will-change: transform;
+}
+.cs-char:hover .cs-char-fig img { transform: scale(1.035); }
+
+.cs-char-name {
+    margin: 20px 0 4px;
+    font-family: var(--font-serif);
+    font-size: clamp(21px, 1.7vw, 27px);
+    font-weight: 500;
+    color: var(--text);
+}
+.cs-char-en {
+    font-size: 10.5px;
+    letter-spacing: 0.26em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+    margin-bottom: 12px;
+}
+.cs-char-tags {
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity 0.45s var(--ease), transform 0.45s var(--ease);
+}
+.cs-char:hover .cs-char-tags { opacity: 1; transform: none; }
+.cs-char-tag {
+    display: block;
+    font-size: 12.5px;
+    line-height: 1.85;
+    color: var(--text-soft);
+    letter-spacing: 0.02em;
+}
+.cs-char-tag b {
+    font-weight: 600;
+    color: var(--text);
+}
+.cs-char-dot {
+    display: inline-block;
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    margin-right: 8px;
+    vertical-align: 1px;
+}
+.cs-char-tag--landmine { color: var(--text-faint); font-size: 12px; }
+.cs-char-tag--landmine b { color: var(--text-soft); font-weight: 600; }
+
+/* 角色姓名旁的色点（真实游戏配色） */
+.cs-char-name .cs-char-dot { vertical-align: 3px; }
+
+/* ============================================================
+   04 SCENES
+   ============================================================ */
+.cs-scene {
+    position: relative;
+    overflow: hidden;
+    border-radius: 4px;
+}
+.cs-scene img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 1.2s var(--ease);
+    will-change: transform;
+}
+.cs-scene-cap {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    margin-top: 12px;
+    font-size: 11.5px;
+    letter-spacing: 0.12em;
+    color: var(--text-soft);
+}
+.cs-scene-cap b {
+    font-weight: 600;
+    color: var(--text);
+    letter-spacing: 0.06em;
+}
+.cs-scene-cap span:last-child {
+    color: var(--text-faint);
+    text-align: right;
+    white-space: nowrap;
+}
+
+.cs-scene--full {
+    margin-left: calc(var(--gutter) * -1);
+    margin-right: calc(var(--gutter) * -1);
+}
+.cs-scene--full .cs-scene-inner {
+    max-width: var(--container);
+    margin: 0 auto;
+    padding: 0 var(--gutter);
+}
+.cs-scene--full img { aspect-ratio: 16 / 8.2; }
+.cs-scene--full .cs-scene-cap { padding: 0 var(--gutter); }
+
+.cs-scene-grid {
+    display: grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: clamp(20px, 3vw, 44px);
+    margin-top: clamp(28px, 4vw, 56px);
+}
+.cs-scene-grid .cs-scene img { aspect-ratio: 4 / 3; }
+.cs-scene-grid .cs-scene--push { margin-top: 72px; }
+
+.cs-scene-row {
+    display: grid;
+    grid-template-columns: 0.9fr 1.1fr;
+    gap: clamp(20px, 3vw, 44px);
+    margin-top: clamp(28px, 4vw, 56px);
+    align-items: end;
+}
+.cs-scene-row .cs-scene img { aspect-ratio: 4 / 3; }
+.cs-scene-note {
+    margin-top: clamp(36px, 5vw, 64px);
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    color: var(--text-faint);
+    text-transform: uppercase;
+}
+
+/* ============================================================
+   05 INTERACTION LOGIC
+   ============================================================ */
+.cs-flow {
+    max-width: 760px;
+    margin: 0 auto;
+}
+.cs-flow-node {
+    position: relative;
+    text-align: center;
+    padding: 0 24px;
+}
+.cs-flow-card {
+    display: inline-block;
+    min-width: min(100%, 520px);
+    background: #FBF8F2;
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 22px 30px;
+    transition: border-color 0.4s var(--ease), transform 0.4s var(--ease), box-shadow 0.4s var(--ease);
+}
+.cs-flow-card:hover {
+    border-color: var(--text-faint);
+    transform: translateY(-3px);
+    box-shadow: 0 16px 40px rgba(70, 52, 30, 0.08);
+}
+.cs-flow-card h4 {
+    font-family: var(--font-serif);
+    font-weight: 500;
+    font-size: clamp(19px, 2vw, 25px);
+    color: var(--text);
+    margin-bottom: 6px;
+}
+.cs-flow-card p {
+    font-size: 12.5px;
+    line-height: 1.8;
+    color: var(--text-soft);
+    letter-spacing: 0.03em;
+}
+.cs-flow-arrow {
+    width: 1px;
+    height: 44px;
+    background: var(--line);
+    margin: 0 auto;
+    position: relative;
+}
+.cs-flow-arrow::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 50%;
+    width: 7px; height: 7px;
+    border-right: 1px solid var(--text-faint);
+    border-bottom: 1px solid var(--text-faint);
+    transform: translateX(-50%) rotate(45deg);
+}
+
+/* 关系阶段条 */
+.cs-stages {
+    margin: clamp(56px, 7vw, 90px) auto 0;
+    max-width: 1060px;
+}
+.cs-stages-label {
+    text-align: center;
+    font-size: 11px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+    margin-bottom: 26px;
+}
+.cs-stage-bar { display: flex; gap: 6px; }
+.cs-stage {
+    flex: 1;
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 20px 16px 18px;
+    background: #FBF8F2;
+    transition: transform 0.4s var(--ease), background 0.4s var(--ease);
+}
+.cs-stage:hover { transform: translateY(-4px); background: #fff; }
+.cs-stage-range {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 21px;
+    color: var(--text-faint);
+    margin-bottom: 8px;
+}
+.cs-stage-name {
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    color: var(--text);
+}
+.cs-stage-bar-visual {
+    height: 3px;
+    background: var(--line-soft);
+    border-radius: 3px;
+    margin-top: 14px;
+    overflow: hidden;
+}
+.cs-stage-bar-visual i {
+    display: block;
+    height: 100%;
+    width: 0;
+    background: var(--text);
+    transition: width 1s var(--ease) 0.2s;
+}
+.cs-stages.in .cs-stage:nth-child(1) i { width: 39%; }
+.cs-stages.in .cs-stage:nth-child(2) i { width: 59%; }
+.cs-stages.in .cs-stage:nth-child(3) i { width: 79%; }
+.cs-stages.in .cs-stage:nth-child(4) i { width: 100%; background: var(--cs-gu); }
+.cs-stages.in .cs-stage:nth-child(4) .cs-stage-range { color: var(--cs-gu); }
+
+.cs-rule-row {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(20px, 3vw, 40px);
+    margin-top: clamp(40px, 5vw, 64px);
+}
+.cs-rule {
+    border: 1px solid var(--line);
+    border-top: 2px solid var(--text);
+    border-radius: 0 0 4px 4px;
+    padding: 26px 28px 28px;
+    background: #FBF8F2;
+}
+.cs-rule h5 {
+    font-size: 11px;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+    margin-bottom: 14px;
+    font-weight: 600;
+}
+.cs-rule p {
+    font-size: 14px;
+    line-height: 1.9;
+    color: var(--text-soft);
+}
+.cs-rule p b { color: var(--text); font-weight: 600; }
+.cs-endings {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 14px;
+}
+.cs-ending {
+    font-size: 12.5px;
+    letter-spacing: 0.06em;
+    padding: 8px 16px;
+    border: 1px solid var(--line);
+    border-radius: 30px;
+    color: var(--text-soft);
+    background: #fff;
+}
+.cs-ending b {
+    font-family: var(--font-serif);
+    font-style: italic;
+    margin-right: 8px;
+    color: var(--text-faint);
+}
+
+/* ============================================================
+   06 PROCESS
+   ============================================================ */
+.cs-process {
+    display: grid;
+    grid-template-columns: repeat(9, minmax(0, 1fr));
+    gap: 0;
+    position: relative;
+}
+.cs-process::before {
+    content: '';
+    position: absolute;
+    top: 23px;
+    left: 4%;
+    right: 4%;
+    height: 1px;
+    background: var(--line);
+}
+.cs-step { text-align: center; padding: 0 6px; position: relative; }
+.cs-step-dot {
+    width: 46px; height: 46px;
+    margin: 0 auto 16px;
+    border-radius: 50%;
+    border: 1px solid var(--line);
+    background: var(--bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 15px;
+    color: var(--text-soft);
+    position: relative;
+    z-index: 1;
+    transition: background 0.4s var(--ease), color 0.4s var(--ease), border-color 0.4s var(--ease);
+}
+.cs-step:hover .cs-step-dot {
+    background: var(--text);
+    color: var(--bg);
+    border-color: var(--text);
+}
+.cs-step-txt {
+    font-size: 12px;
+    line-height: 1.7;
+    letter-spacing: 0.04em;
+    color: var(--text-soft);
+}
+.cs-docs {
+    margin-top: clamp(52px, 6vw, 80px);
+    border-top: 1px solid var(--line);
+    padding-top: 36px;
+    display: grid;
+    grid-template-columns: 138px minmax(0, 1fr);
+    gap: 28px;
+}
+.cs-docs-label {
+    font-size: 11px;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+    padding-top: 4px;
+}
+.cs-docgroup { margin-bottom: 20px; }
+.cs-docgroup:last-child { margin-bottom: 0; }
+.cs-docgroup h6 {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    color: var(--text);
+    margin-bottom: 10px;
+}
+.cs-doclist { display: flex; flex-wrap: wrap; gap: 8px; }
+.cs-doc {
+    font-size: 11.5px;
+    color: var(--text-soft);
+    letter-spacing: 0.03em;
+    border: 1px solid var(--line-soft);
+    background: #FBF8F2;
+    padding: 6px 12px;
+    border-radius: 3px;
+}
+
+/* ============================================================
+   07 UI/UX ITERATION
+   ============================================================ */
+.cs-iter {
+    border-top: 1px solid var(--line);
+}
+.cs-iter-row {
+    display: grid;
+    grid-template-columns: 44px minmax(0, 1fr) 56px minmax(0, 1.12fr);
+    gap: clamp(18px, 2.4vw, 34px);
+    padding: clamp(30px, 3.6vw, 50px) 0;
+    border-bottom: 1px solid var(--line);
+    align-items: start;
+}
+.cs-iter-no {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 15px;
+    color: var(--text-faint);
+}
+.cs-iter-cell h5 {
+    font-size: 10.5px;
+    font-weight: 600;
+    letter-spacing: 0.26em;
+    margin-bottom: 14px;
+}
+.cs-iter-problem h5 { color: var(--cs-gu); }
+.cs-iter-solution h5 { color: var(--cs-su); }
+.cs-iter-cell p {
+    font-family: var(--font-serif);
+    font-size: clamp(16px, 1.55vw, 21px);
+    line-height: 1.6;
+    color: var(--text);
+    font-weight: 400;
+}
+.cs-iter-cell.cs-iter-solution p {
+    font-family: var(--font-sans);
+    font-size: 13.5px;
+    line-height: 1.95;
+    color: var(--text-soft);
+}
+.cs-iter-arrow {
+    text-align: center;
+    font-size: 18px;
+    color: var(--text-faint);
+    padding-top: 30px;
+}
+.cs-dots { display: inline-flex; gap: 7px; margin-right: 4px; }
+.cs-dots i {
+    width: 8px; height: 8px; border-radius: 50%;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+/* ============================================================
+   08 FINAL EXPERIENCE
+   ============================================================ */
+.cs-final-main { position: relative; }
+.cs-final-main img {
+    width: 100%;
+    border-radius: 4px;
+    box-shadow: 0 30px 80px rgba(70, 52, 30, 0.14);
+}
+.cs-final-sub {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(20px, 3vw, 44px);
+    margin-top: clamp(28px, 4vw, 52px);
+}
+.cs-final-sub .cs-scene img { aspect-ratio: 16 / 9; }
+
+.cs-play {
+    margin-top: clamp(48px, 6vw, 80px);
+    border-top: 1px solid var(--line);
+    padding-top: clamp(40px, 5vw, 64px);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 32px;
+    flex-wrap: wrap;
+}
+.cs-play-txt h4 {
+    font-family: var(--font-serif);
+    font-size: clamp(22px, 2.4vw, 32px);
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+.cs-play-txt p {
+    font-size: 12.5px;
+    color: var(--text-faint);
+    letter-spacing: 0.06em;
+    line-height: 1.8;
+}
+.cs-play-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    border: 1.5px solid var(--text);
+    color: var(--text);
+    background: transparent;
+    padding: 20px 38px;
+    border-radius: 60px;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.24em;
+    transition: background 0.4s var(--ease), color 0.4s var(--ease), gap 0.4s var(--ease);
+    flex-shrink: 0;
+}
+.cs-play-btn:hover {
+    background: var(--text);
+    color: var(--bg);
+    gap: 22px;
+}
+
+/* ============================================================
+   09 RESULT / REFLECTION
+   ============================================================ */
+.cs-sum-block { margin-bottom: clamp(52px, 6vw, 80px); }
+.cs-sum-block:last-of-type { margin-bottom: 0; }
+.cs-sum-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.3em;
+    color: var(--text-faint);
+    margin-bottom: 22px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+.cs-sum-label::after {
+    content: '';
+    flex: 0 0 56px;
+    height: 1px;
+    background: var(--line);
+}
+.cs-sum-text {
+    font-family: var(--font-serif);
+    font-size: clamp(21px, 2.5vw, 33px);
+    line-height: 1.62;
+    max-width: 1000px;
+    color: var(--text);
+}
+.cs-next {
+    margin-top: clamp(72px, 9vw, 130px);
+    border-top: 1px solid var(--line);
+    padding: clamp(44px, 6vw, 80px) 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+}
+.cs-next-label {
+    font-size: 11px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+    margin-bottom: 10px;
+}
+.cs-next-title {
+    font-family: var(--font-serif);
+    font-size: clamp(24px, 3vw, 40px);
+    color: var(--text);
+    transition: transform 0.45s var(--ease);
+}
+.cs-next:hover .cs-next-title { transform: translateX(-10px); }
+.cs-next-arrow {
+    font-family: var(--font-serif);
+    font-size: clamp(30px, 4vw, 52px);
+    color: var(--text-faint);
+    transition: transform 0.45s var(--ease), color 0.45s var(--ease);
+}
+.cs-next:hover .cs-next-arrow { transform: translateX(12px); color: var(--text); }
+
+.cs-footer {
+    padding: 34px 0 46px;
+    text-align: center;
+    font-size: 10.5px;
+    letter-spacing: 0.26em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 1024px) {
+    .cs-process { grid-template-columns: repeat(3, 1fr); row-gap: 40px; }
+    .cs-process::before { display: none; }
+    .cs-iter-row {
+        grid-template-columns: 36px minmax(0, 1fr);
+    }
+    .cs-iter-arrow {
+        grid-column: 2;
+        text-align: left;
+        padding: 4px 0 0;
+        transform: rotate(90deg);
+        width: 30px;
+    }
+    .cs-iter-solution { grid-column: 2; }
+}
+
+@media (max-width: 860px) {
+    .case-page { padding-top: 76px; }
+    .cs-hero-grid { grid-template-columns: 1fr; gap: 48px; }
+    .cs-sec-head { grid-template-columns: 1fr; gap: 12px; }
+    .cs-sec-num { padding-top: 0; }
+    .cs-bg-quote, .cs-bg-sign { margin-left: 0; }
+    .cs-goal { grid-template-columns: 72px minmax(0, 1fr); gap: 16px; }
+    .cs-roster { grid-template-columns: repeat(2, 1fr); gap: 40px 20px; }
+    .cs-char:nth-child(even) { transform: none; }
+    .cs-char-tags { opacity: 1; transform: none; }
+    .cs-scene-grid, .cs-scene-row, .cs-final-sub { grid-template-columns: 1fr; }
+    .cs-scene-grid .cs-scene--push { margin-top: 0; }
+    .cs-rule-row { grid-template-columns: 1fr; }
+    .cs-stage-bar { flex-wrap: wrap; }
+    .cs-stage { flex: 1 1 40%; }
+    .cs-docs { grid-template-columns: 1fr; gap: 16px; }
+    .cs-iter-row { grid-template-columns: 1fr; gap: 8px; }
+    .cs-iter-no { display: none; }
+    .cs-iter-cell, .cs-iter-arrow, .cs-iter-solution { grid-column: 1; }
+    .cs-play { flex-direction: column; align-items: flex-start; }
+}
+
+@media (max-width: 520px) {
+    :root { --gutter: 24px; }
+    .cs-process { grid-template-columns: repeat(2, 1fr); }
+    .cs-stage { flex-basis: 100%; }
+    .cs-hero-tags { letter-spacing: 0.08em; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .cs-reveal { opacity: 1; transform: none; transition: none; }
+    .cs-scene img, .cs-char-fig img { transition: none; }
+}
+
+/* ============================================================
+   成果优先 Hero：一句话简介 + PLAY + 实机浏览器窗框
+   ============================================================ */
+.cs-hero-oneline {
+    font-size: 14px;
+    line-height: 2;
+    color: var(--text-soft);
+    max-width: 460px;
+}
+.cs-hero-play { margin-top: 32px; }
+
+/* 深色浏览器窗框 */
+.cs-browserbar {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    height: 38px;
+    padding: 0 15px;
+    background: #162033;
+    border-bottom: 1px solid #2b3a55;
+}
+.cs-browserbar i {
+    width: 9px; height: 9px;
+    display: block;
+    border-radius: 50%;
+    background: #3c4c6b;
+}
+.cs-browserbar b {
+    margin-left: 12px;
+    font-size: 10.5px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    color: #9fb0cf;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+/* 实机图比例贴合 1890×915，完整不裁切 */
+.cs-hero-screen img {
+    aspect-ratio: 1890 / 915;
+    object-fit: cover;
+}
+
+/* ============================================================
+   核心亮点 + 封面主视觉带
+   ============================================================ */
+.cs-band {
+    padding: clamp(60px, 7vw, 100px) 0;
+    border-bottom: 1px solid var(--line);
+}
+.cs-band-hl {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    border: 1px solid var(--line);
+    background: var(--line);
+}
+.cs-band-hl span {
+    background: var(--bg);
+    padding: 24px 26px;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    color: var(--text-soft);
+}
+.cs-band-hl b {
+    display: block;
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 24px;
+    font-weight: 500;
+    color: var(--text);
+    margin-bottom: 8px;
+}
+.cs-band-cover {
+    position: relative;
+    margin: clamp(52px, 6vw, 84px) 0 0;
+    overflow: hidden;
+    border-radius: 4px;
+    box-shadow: 0 30px 80px rgba(70, 52, 30, 0.16);
+}
+.cs-band-cover img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 3 / 2;
+    object-fit: cover;
+}
+.cs-band-cover .cs-fig-caption {
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    margin: 0;
+    padding: 46px 18px 14px;
+    color: rgba(251, 248, 242, 0.92);
+    background: linear-gradient(180deg, rgba(32,27,22,0), rgba(32,27,22,0.55));
+    pointer-events: none;
+}
+.cs-band-cover .cs-fig-caption span:last-child { color: rgba(251, 248, 242, 0.72); }
+
+@media (max-width: 860px) {
+    .cs-band-hl { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 520px) {
+    .cs-band-hl { grid-template-columns: 1fr; }
+    .cs-hero-play { width: 100%; justify-content: center; }
+}

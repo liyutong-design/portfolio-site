@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Character Style Transfer — LI YUETONG</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Noto+Serif+SC:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/case-shared.css">
+    <link rel="stylesheet" href="css/case-structure.css">
+    <style>
+        :root { --cs-ink:#1b1714; }
+        body.case-page { background:var(--bg); color:var(--text); padding-top:88px; overflow-x:clip; }
+        .cs-wrap { width:100%; max-width:var(--container); margin:0 auto; padding:0 var(--gutter); }
+        .cs-sec { padding-top: clamp(72px, 9vw, 128px); }
+        .cs-reveal { opacity:0; transform:translateY(30px); transition:opacity .9s var(--ease), transform .9s var(--ease); }
+        .cs-reveal.in { opacity:1; transform:none; }
+        .cs-back { display:inline-block; font-size:11px; font-weight:500; letter-spacing:.24em; color:var(--text-soft); margin-bottom:48px; }
+        .cs-back:hover { color:var(--text); transform:translateX(-5px); }
+        .cs-back { transition:color .4s var(--ease), transform .4s var(--ease); }
+        .cs-kicker { font-size:10.5px; font-weight:500; letter-spacing:.24em; color:var(--text-faint); margin-bottom:26px; }
+        .cs-title { font-family:var(--font-serif); font-weight:600; font-size:clamp(34px,4.2vw,62px); line-height:1.1; margin:0; }
+        .cs-cn { margin-top:16px; font-family:"Noto Serif SC",serif; font-size:clamp(19px,1.7vw,25px); }
+        .cs-sub { margin-top:10px; font-family:var(--font-serif); font-style:italic; font-size:clamp(12px,1vw,14px); letter-spacing:.14em; color:var(--text-faint); }
+        .cs-quote { margin-top:30px; font-family:"Noto Serif SC",serif; font-size:clamp(15px,1.2vw,18px); line-height:1.95; color:var(--text); padding-left:20px; border-left:2px solid var(--text); max-width:520px; }
+        .cs-meta { display:flex; flex-wrap:wrap; margin-top:32px; }
+        .cs-meta span { font-size:11px; letter-spacing:.08em; color:var(--text-soft); padding-right:18px; margin-right:18px; border-right:1px solid var(--line); }
+        .cs-meta span:last-child { border-right:none; }
+        .cs-hero-grid { display:grid; grid-template-columns:5fr 7fr; gap:clamp(36px,4vw,72px); align-items:center; padding-bottom:80px; border-bottom:1px solid var(--line); }
+        .cs-hero-visual { justify-self:center; width:min(100%,560px); }
+        .cs-hero-visual .cs-frame { overflow:hidden; aspect-ratio:3/4; box-shadow:0 50px 90px -44px rgba(20,15,10,.5); background:var(--bg); }
+        .cs-hero-visual img { display:block; width:100%; height:100%; object-fit:contain; cursor:zoom-in; }
+        .cs-head { display:flex; align-items:flex-start; gap:28px; margin-bottom:clamp(36px,4vw,56px); }
+        .cs-num { font-family:var(--font-serif); font-style:italic; font-size:clamp(40px,4.6vw,64px); line-height:1; color:var(--text-faint); }
+        .cs-stitle { font-family:"Noto Serif SC",serif; font-weight:500; font-size:clamp(28px,3.2vw,44px); line-height:1.15; margin:0; }
+        .cs-head .section-label { display:block; margin-bottom:14px; }
+        .cs-info { display:grid; grid-template-columns:repeat(2,1fr); gap:1px; background:var(--line); border:1px solid var(--line); }
+        .cs-info-item { background:var(--bg); padding:clamp(26px,2.6vw,40px); }
+        .cs-info-en { font-size:10px; font-weight:600; letter-spacing:.24em; color:var(--text-faint); margin:0 0 14px; }
+        .cs-info-item h3 { font-family:"Noto Serif SC",serif; font-weight:500; font-size:20px; margin:0 0 14px; }
+        .cs-info-item p:last-child { margin:0; font-size:13.5px; line-height:1.95; color:var(--text-soft); }
+        .cs-rail-box { position:relative; }
+        .cs-rail-hint { margin:0 0 18px; font-size:10.5px; font-weight:600; letter-spacing:.26em; color:var(--text-faint); }
+        .cs-rail { display:grid; grid-auto-flow:column; grid-auto-columns:clamp(200px,22vw,250px); gap:1px; background:var(--line); border:1px solid var(--line); overflow-x:auto; scroll-snap-type:x mandatory; scrollbar-width:none; }
+        .cs-rail::-webkit-scrollbar { display:none; }
+        .cs-rail-node { background:#FBF8F2; scroll-snap-align:start; padding:clamp(26px,2.6vw,38px) clamp(20px,2vw,30px) clamp(30px,3vw,44px); position:relative; }
+        .cs-rail-node::after { content:"→"; position:absolute; right:14px; bottom:12px; font-size:13px; color:var(--text-faint); }
+        .cs-rail-node:last-child::after { content:""; }
+        .cs-rail-no { font-family:var(--font-serif); font-style:italic; font-size:clamp(34px,3.4vw,48px); line-height:1; color:var(--text-faint); display:block; margin-bottom:40px; }
+        .cs-rail-node h3 { margin:0 0 10px; font-family:"Noto Serif SC",serif; font-weight:600; font-size:clamp(16px,1.4vw,19px); }
+        .cs-rail-node p { margin:0; font-size:12px; line-height:1.8; color:var(--text-soft); }
+        .cs-rail-node--core { background:var(--cs-ink); color:var(--bg); }
+        .cs-rail-node--core .cs-rail-no { color:rgba(244,238,227,.45); }
+        .cs-rail-node--core p { color:rgba(244,238,227,.72); }
+        /* 角色组：线稿→参考→成图 三栏 */
+        .cs-char { padding:clamp(36px,4.5vw,64px) 0; border-bottom:1px solid var(--line); }
+        .cs-char:first-of-type { border-top:1px solid var(--line); }
+        .cs-char-grid { display:grid; grid-template-columns:1fr 1fr 1fr; gap:clamp(14px,1.6vw,24px); align-items:end; }
+        .cs-step { margin:0; }
+        .cs-step .cs-img { overflow:hidden; aspect-ratio:3/4; background:var(--bg); border:1px solid #e8e1d4; }
+        .cs-step .cs-img img { display:block; width:100%; height:100%; object-fit:contain; cursor:zoom-in; transition:transform 1s var(--ease); }
+        .cs-step:hover .cs-img img { transform:scale(1.035); }
+        .cs-step figcaption { margin-top:12px; }
+        .cs-step b { display:block; font-size:9.5px; letter-spacing:.22em; color:var(--text-faint); font-weight:600; margin-bottom:4px; }
+        .cs-step span { font-family:"Noto Serif SC",serif; font-size:14px; color:var(--text-soft); }
+        .cs-arrow { font-family:var(--font-serif); font-size:28px; color:var(--text-faint); align-self:center; text-align:center; }
+        .cs-char-meta { margin-top:24px; max-width:720px; }
+        .cs-char-no { font-size:10.5px; font-weight:600; letter-spacing:.26em; color:var(--text-faint); margin:0 0 14px; }
+        .cs-char-meta h3 { margin:0 0 12px; font-family:"Noto Serif SC",serif; font-weight:500; font-size:clamp(19px,1.9vw,25px); line-height:1.4; }
+        .cs-char-meta p:last-child { margin:0; font-size:13.5px; line-height:2; color:var(--text-soft); }
+        .cs-conclusion { max-width:820px; margin:0 auto; text-align:center; padding:clamp(20px,3vw,40px) 0 10px; }
+        .cs-conclusion-en { font-family:var(--font-serif); font-style:italic; font-size:clamp(11px,1vw,13px); letter-spacing:.22em; color:var(--text-faint); margin:0 0 26px; }
+        .cs-conclusion-text { font-family:"Noto Serif SC",serif; font-size:clamp(17px,1.8vw,24px); line-height:2.1; color:var(--text); margin:0; }
+        .cs-footer { margin-top:clamp(80px,9vw,120px); background:var(--cs-ink); padding:34px 0 46px; }
+        .cs-footer-row { display:flex; align-items:center; justify-content:space-between; gap:20px; }
+        .cs-footer .cs-back { margin:0; color:rgba(233,225,213,.6); }
+        .cs-footer .cs-back:hover { color:#f4eee3; }
+        .cs-footer p { margin:0; font-size:10.5px; letter-spacing:.24em; color:rgba(233,225,213,.4); }
+        @media (max-width:1100px) { .cs-hero-grid { grid-template-columns:1fr; } .cs-info { grid-template-columns:1fr; } }
+        @media (max-width:720px) {
+            .cs-head { gap:18px; }
+            .cs-char-grid { grid-template-columns:1fr; gap:20px; }
+            .cs-arrow { transform:rotate(90deg); }
+            .cs-footer-row { flex-direction:column; text-align:center; }
+        }
+        @media (prefers-reduced-motion:reduce) { .cs-reveal { opacity:1; transform:none; transition:none; } .cs-step .cs-img img { transition:none; } }
+    </style>
+</head>
+<body class="case-page">
+
+    <nav class="nav nav--solid" id="nav">
+        <a href="index.html" class="nav__logo">LI YUETONG</a>
+        <div class="nav__links">
+            <a href="index.html#works" class="nav__link">WORK</a>
+            <a href="works.html" class="nav__link">VISUAL WORKS</a>
+            <a href="index.html#about" class="nav__link">ABOUT</a>
+            <a href="index.html#contact" class="nav__link">CONTACT</a>
+        </div>
+    </nav>
+
+    <main>
+        <!-- 01 HERO -->
+        <header class="cs-wrap" style="padding-top:clamp(34px,5vw,60px);">
+            <a class="cs-back cs-reveal" href="works.html">← BACK TO VISUAL WORKS</a>
+            <div class="cs-hero-grid">
+                <div>
+                    <p class="cs-kicker cs-reveal">VISUAL EXPLORATION 06 · 2026 · CHARACTER AI</p>
+                    <h1 class="cs-title cs-reveal">CHARACTER<br>STYLE TRANSFER</h1>
+                    <p class="cs-cn cs-reveal">AI 角色风格迁移设计</p>
+                    <p class="cs-sub cs-reveal">AI-ASSISTED CHARACTER STYLE TRANSFER</p>
+                    <p class="cs-quote cs-reveal">以角色线稿为结构基础，结合参考图的人物特征与风格，通过 AI 将参考图的风格迁移到线稿上，输出保持线稿构图、融合参考风格的角色成图。</p>
+                    <div class="cs-meta cs-reveal">
+                        <span>4 组角色对照</span>
+                        <span>线稿 · 参考 · 成图</span>
+                        <span>AI 风格迁移</span>
+                    </div>
+                </div>
+                <div class="cs-hero-visual cs-reveal">
+                    <div class="cs-frame">
+                        <img src="assets/explorations/character-style/cover.png" alt="AI 角色风格迁移：线稿→参考→成图对照">
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- 02 OVERVIEW -->
+        <section class="cs-sec cs-wrap" id="overview">
+            <header class="cs-head cs-reveal">
+                <span class="cs-num">02</span>
+                <div>
+                    <p class="section-label">PROJECT OVERVIEW &amp; OBJECTIVE</p>
+                    <h2 class="cs-stitle">项目概述与项目目标</h2>
+                </div>
+            </header>
+            <div class="cs-info">
+                <article class="cs-info-item cs-reveal">
+                    <p class="cs-info-en">PROJECT OVERVIEW</p>
+                    <h3>项目概述</h3>
+                    <p>以角色线稿作为构图与结构基准，引入参考图作为风格来源，通过 AI 风格迁移将参考图的人物特征、服饰与视觉风格迁移到线稿上，生成保持线稿结构、融合参考风格的角色成图。</p>
+                </article>
+                <article class="cs-info-item cs-reveal">
+                    <p class="cs-info-en">PROJECT OBJECTIVE</p>
+                    <h3>项目目标</h3>
+                    <p>探索 AI 在角色设计中的风格迁移能力：在锁定线稿构图与人物结构的前提下，快速套用不同参考图的风格，批量产出差异化角色视觉，提升角色概念探索效率。</p>
+                </article>
+            </div>
+        </section>
+
+        <!-- 项目背景 + AI技术应用 -->
+        <section class="ps-sec cs-wrap">
+            <header class="ps-head cs-reveal">
+                <span class="ps-num">02.5</span>
+                <div>
+                    <p class="section-label">PROJECT BACKGROUND &amp; AI TECHNOLOGY</p>
+                    <h2 class="ps-title">项目背景与 AI 技术应用</h2>
+                </div>
+            </header>
+            <div class="ps-bg cs-reveal">
+                <p class="ps-bg-quote">角色设计中，线稿到成图的上色与风格化环节耗时较长，且风格统一难度高。</p>
+                <p class="ps-bg-text">本项目以角色线稿锁定结构与姿态，以参考图提供风格方向，通过 AI 风格迁移快速生成融合二者的角色成图，用于角色概念阶段的风格探索与批量产出，显著提升角色设计效率。</p>
+            </div>
+            <div class="ps-tech-grid cs-reveal">
+                <div class="ps-tech-item">
+                    <p class="ps-tech-en">TOOLS</p>
+                    <h3>使用工具</h3>
+                    <ul class="ps-tech-tags"><li>AI 图像生成</li><li>线稿控制</li><li>风格参考图</li></ul>
+                </div>
+                <div class="ps-tech-item">
+                    <p class="ps-tech-en">GENERATION</p>
+                    <h3>AI 生成方式</h3>
+                    <p>以线稿图为结构输入，配合风格参考图与提示词，由 AI 生成融合线稿结构与参考图风格的角色成图。</p>
+                </div>
+                <div class="ps-tech-item">
+                    <p class="ps-tech-en">WORKFLOW</p>
+                    <h3>工作流程</h3>
+                    <ul><li>线稿结构整理</li><li>风格参考图选择</li><li>风格提示词设计</li><li>AI 风格迁移生成</li><li>结构/风格一致性筛选</li></ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 03 WORKFLOW -->
+        <section class="cs-sec cs-wrap" id="workflow">
+            <header class="cs-head cs-reveal">
+                <span class="cs-num">03</span>
+                <div>
+                    <p class="section-label">WORKFLOW</p>
+                    <h2 class="cs-stitle">制作流程</h2>
+                </div>
+            </header>
+            <div class="cs-rail-box cs-reveal">
+                <p class="cs-rail-hint">SCROLL <span>→</span></p>
+                <div class="cs-rail">
+                    <div class="cs-rail-node"><span class="cs-rail-no">01</span><h3>线稿绘制</h3><p>确定角色构图与结构</p></div>
+                    <div class="cs-rail-node"><span class="cs-rail-no">02</span><h3>参考图准备</h3><p>选定目标风格与人物特征</p></div>
+                    <div class="cs-rail-node cs-rail-node--core"><span class="cs-rail-no">03</span><h3>AI 风格迁移</h3><p>线稿融合参考风格生成</p></div>
+                    <div class="cs-rail-node"><span class="cs-rail-no">04</span><h3>一致性控制</h3><p>结构与特征比对修正</p></div>
+                    <div class="cs-rail-node"><span class="cs-rail-no">05</span><h3>筛选与输出</h3><p>多组结果对比筛选</p></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 04 CASES -->
+        <section class="cs-sec cs-wrap" id="cases">
+            <header class="cs-head cs-reveal">
+                <span class="cs-num">04</span>
+                <div>
+                    <p class="section-label">CHARACTER CASES</p>
+                    <h2 class="cs-stitle">角色风格迁移案例</h2>
+                </div>
+            </header>
+            <p class="cs-reveal" style="margin:-18px 0 52px; font-size:14px; color:var(--text-soft);">每组展示：线稿 → 参考图 → AI 风格迁移成图。</p>
+
+            <article class="cs-char cs-reveal">
+                <div class="cs-char-grid">
+                    <figure class="cs-step"><div class="cs-img"><img loading="lazy" src="assets/explorations/character-style/c1-before.png" alt="线稿"></div><figcaption><b>LINE ART</b><span>线稿</span></figcaption></figure>
+                    <figure class="cs-step"><div class="cs-img"><img loading="lazy" src="assets/explorations/character-style/c1-ref.png" alt="参考图"></div><figcaption><b>REFERENCE</b><span>参考图</span></figcaption></figure>
+                    <figure class="cs-step"><div class="cs-img"><img loading="lazy" src="assets/explorations/character-style/c1-after.png" alt="成图"></div><figcaption><b>FINAL</b><span>成图</span></figcaption></figure>
+                </div>
+                <div class="cs-char-meta"><p class="cs-char-no">CHARACTER 01</p><h3>线稿 + 参考图 → 角色成图</h3><p>保留线稿的构图与人物结构，将参考图的发型、服饰与视觉风格迁移至线稿，生成融合二者特征的角色成图。</p></div>
+            </article>
+
+            <article class="cs-char cs-reveal">
+                <div class="cs-char-grid">
+                    <figure class="cs-step"><div class="cs-img"><img loading="lazy" src="assets/explorations/character-style/c2-before.png" alt="线稿"></div><figcaption><b>LINE ART</b><span>线稿</span></figcaption></figure>
+                    <figure class="cs-step"><div class="cs-img"><img loading="lazy" src="assets/explorations/character-style/c2-ref.png" alt="参考图"></div><figcaption><b>REFERENCE</b><span>参考图</span></figcaption></figure>
+                    <figure class="cs-step"><div class="cs-img"><img loading="lazy" src="assets/explorations/character-style/c2-after.png" alt="成图"></div><figcaption><b>FINAL</b><span>成图</span></figcaption></figure>
+                </div>
+                <div class="cs-char-meta"><p class="cs-char-no">CHARACTER 02</p><h3>线稿 + 参考图 → 角色成图</h3><p>第二组角色风格迁移，验证不同参考风格下的迁移稳定性与成图完成度。</p></div>
+            </article>
+
+            <article class="cs-char cs-reveal">
+                <div class="cs-char-grid">
+                    <figure class="cs-step"><div class="cs-img"><img loading="lazy" src="assets/explorations/character-style/c3-before.png" alt="线稿"></div><figcaption><b>LINE ART</b><span>线稿</span></figcaption></figure>
+                    <figure class="cs-step"><div class="cs-img"><img loading="lazy" src="assets/explorations/character-style/c3-ref.png" alt="参考图"></div><figcaption><b>REFERENCE</b><span>参考图</span></figcaption></figure>
+                    <figure class="cs-step"><div class="cs-img"><img loading="lazy" src="assets/explorations/character-style/c3-after.png" alt="成图"></div><figcaption><b>FINAL</b><span>成图</span></figcaption></figure>
+                </div>
+                <div class="cs-char-meta"><p class="cs-char-no">CHARACTER 03</p><h3>线稿 + 参考图 → 角色成图</h3><p>第三组角色风格迁移，对比不同参考图带来的风格差异。</p></div>
+            </article>
+
+            <article class="cs-char cs-reveal">
+                <div class="cs-char-grid">
+                    <figure class="cs-step"><div class="cs-img"><img loading="lazy" src="assets/explorations/character-style/c4-before.png" alt="线稿"></div><figcaption><b>LINE ART</b><span>线稿</span></figcaption></figure>
+                    <figure class="cs-step"><div class="cs-img"><img loading="lazy" src="assets/explorations/character-style/c4-ref.png" alt="参考图"></div><figcaption><b>REFERENCE</b><span>参考图</span></figcaption></figure>
+                    <figure class="cs-step"><div class="cs-img"><img loading="lazy" src="assets/explorations/character-style/c4-after.png" alt="成图"></div><figcaption><b>FINAL</b><span>成图</span></figcaption></figure>
+                </div>
+                <div class="cs-char-meta"><p class="cs-char-no">CHARACTER 04</p><h3>线稿 + 参考图 → 角色成图</h3><p>第四组角色风格迁移，整体展示 AI 在线稿结构锁定下的风格迁移能力。</p></div>
+            </article>
+        </section>
+
+        <!-- 05 CONCLUSION -->
+        <section class="cs-sec cs-wrap" id="final">
+            <header class="cs-head cs-reveal">
+                <span class="cs-num">05</span>
+                <div>
+                    <p class="section-label">CONCLUSION</p>
+                    <h2 class="cs-stitle">最终总结</h2>
+                </div>
+            </header>
+            <div class="cs-conclusion cs-reveal">
+                <p class="cs-conclusion-en">AI-ASSISTED CHARACTER STYLE TRANSFER</p>
+                <p class="cs-conclusion-text">本项目展示了 AI 在角色设计中的风格迁移能力：以线稿锁定结构，以参考图提供风格方向，快速生成融合二者的角色成图，有效提升角色概念阶段的风格探索与批量产出效率。</p>
+            </div>
+        </section>
+
+        <!-- ===== 统一底部导航：BACK TO HOME + NEXT PROJECT ===== -->
+        <nav class="pnav">
+            <div class="pnav-inner">
+                <a class="pnav-link pnav-back" href="index.html">
+                    <span class="pnav-label">← BACK TO HOME</span>
+                    <span class="pnav-name">返回首页</span>
+                </a>
+                <a class="pnav-link pnav-next" href="case-ecommerce.html">
+                    <span class="pnav-label">NEXT PROJECT</span>
+                    <span class="pnav-name">电商产品详情长图海报 →</span>
+                </a>
+            </div>
+        </nav>
+
+        <footer class="cs-footer">
+            <div class="cs-wrap cs-footer-row">
+                <p>© 2026 LI YUETONG · AI VISUAL CREATOR</p>
+            </div>
+        </footer>
+
+    </main>
+
+    <script>
+    (function(){
+        var els = document.querySelectorAll('.cs-reveal');
+        if (!('IntersectionObserver' in window)) { els.forEach(function(e){e.classList.add('in');}); return; }
+        var io = new IntersectionObserver(function(en){ en.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} }); }, {threshold:0.12, rootMargin:'0px 0px -6% 0px'});
+        els.forEach(function(e){ io.observe(e); });
+    })();
+    </script>
+    <script src="js/nav-memory.js"></script>
+    <script src="js/case-lightbox.js"></script>
+</body>
+</html>

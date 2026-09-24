@@ -1,0 +1,183 @@
+/* ============================================================
+   case-shared.css — 全站详情页统一图片展示规范
+   所有 Case Study 页面共享：尺寸约束 + 点击查看大图灯箱
+   加载顺序：style.css → case-*.css → case-shared.css（本文件最后加载，覆盖优先）
+   ============================================================ */
+
+/* ============================================================
+   一、统一图片容器尺寸约束
+   桌面端：最大高度 ≤ 78vh（约占视口 70%-80%），不撑破页面
+   移动端：宽度自适应，保持比例
+   ============================================================ */
+
+/* —— 所有图片框统一限高 —— */
+.vf-frame,
+.cv-frame,
+.cv-work-frame,
+.sp-frame,
+.fr-frame {
+    max-height: 78vh;
+}
+
+/* —— Before / After 对比组件统一限高 —— */
+.fr-compare,
+.sp-compare {
+    max-height: 78vh;
+}
+
+/* ============================================================
+   二、作品展示图片：完整显示不裁切
+   大图从 object-fit: cover 改为 contain，保留原始比例
+   小缩略图保持 cover（不影响内容识别）
+   ============================================================ */
+
+/* —— 融合页：Hero 主视觉 + Case 最终结果 —— */
+.vf-hero-visual .vf-frame img,
+.vf-case-final .vf-frame img {
+    object-fit: contain;
+}
+
+/* —— 商业广告页：Hero 主视觉 + 作品图 + 最终图 —— */
+.cv-hero-main .cv-frame img,
+.cv-work-frame img,
+.cv-final .cv-frame img {
+    object-fit: contain;
+}
+
+/* —— 空间视觉页：Hero 主视觉 —— */
+.sp-hero-main .sp-frame img {
+    object-fit: contain;
+}
+
+/* —— 时尚重构页：Hero AFTER 主视觉 —— */
+.fr-hero-after .fr-frame img {
+    object-fit: contain;
+}
+
+/* —— 含 contain 的容器背景与页面融合 —— */
+.vf-hero-visual .vf-frame,
+.vf-case-final .vf-frame,
+.cv-hero-main .cv-frame,
+.cv-work-frame,
+.cv-final .cv-frame,
+.sp-hero-main .sp-frame,
+.fr-hero-after .fr-frame {
+    background: var(--bg);
+}
+
+/* —— 对比组件图片保持 cover（两层需完全重合，同场景同构图裁切一致）—— */
+/* fr-cmp-img / sp-cmp-img 不改，维持 cover */
+
+/* ============================================================
+   三、对比组件触发按钮（查看完整大图）
+   ============================================================ */
+.case-lb-trigger {
+    position: absolute;
+    bottom: 14px;
+    right: 14px;
+    z-index: 5;
+    background: rgba(27, 23, 20, 0.82);
+    color: #f4eee3;
+    border: none;
+    padding: 8px 14px;
+    font-family: inherit;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    cursor: pointer;
+    display: flex;
+    gap: 6px;
+    align-items: center;
+    transition: background 0.3s ease, transform 0.3s ease;
+    pointer-events: auto;
+}
+.case-lb-trigger:hover {
+    background: rgba(27, 23, 20, 1);
+    transform: translateY(-2px);
+}
+.case-lb-trigger span:last-child {
+    font-size: 12px;
+    line-height: 1;
+}
+
+/* ============================================================
+   四、大图灯箱（Lightbox）
+   ============================================================ */
+.case-lb {
+    position: fixed;
+    inset: 0;
+    z-index: 10000;
+    background: rgba(16, 13, 10, 0.95);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.4s var(--ease, ease),
+                visibility 0s 0.4s;
+}
+.case-lb--open {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.4s var(--ease, ease),
+                visibility 0s;
+}
+.case-lb__img {
+    max-width: 92vw;
+    max-height: 88vh;
+    object-fit: contain;
+    transform: scale(0.96);
+    transition: transform 0.5s var(--ease, ease);
+    box-shadow: 0 40px 100px -20px rgba(0, 0, 0, 0.6);
+    pointer-events: none;
+}
+.case-lb--open .case-lb__img {
+    transform: scale(1);
+}
+.case-lb__close {
+    position: fixed;
+    top: 24px;
+    right: 24px;
+    width: 44px;
+    height: 44px;
+    border: 1px solid rgba(244, 238, 227, 0.3);
+    background: transparent;
+    color: rgba(244, 238, 227, 0.7);
+    font-size: 22px;
+    line-height: 1;
+    cursor: pointer;
+    transition: border-color 0.3s ease, color 0.3s ease;
+}
+.case-lb__close:hover {
+    border-color: rgba(244, 238, 227, 0.6);
+    color: rgba(244, 238, 227, 1);
+}
+.case-lb__hint {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 10px;
+    letter-spacing: 0.24em;
+    color: rgba(244, 238, 227, 0.35);
+    pointer-events: none;
+}
+
+/* —— 展示图鼠标样式 —— */
+.vf-hero-visual .vf-frame img,
+.vf-case-final .vf-frame img,
+.cv-hero-main .cv-frame img,
+.cv-work-frame img,
+.cv-final .cv-frame img,
+.sp-hero-main .sp-frame img,
+.fr-hero-after .fr-frame img {
+    cursor: zoom-in;
+}
+
+/* —— 灯箱内禁用 reduced-motion 动画 —— */
+@media (prefers-reduced-motion: reduce) {
+    .case-lb, .case-lb__img, .case-lb__close {
+        transition: none;
+    }
+    .case-lb__img { transform: none; }
+}

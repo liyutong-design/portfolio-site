@@ -1,0 +1,116 @@
+/* ============================================================
+   case-structure.css — 详情页统一结构模块
+   提供：项目背景（PROJECT BACKGROUND）、AI技术应用（AI TECHNOLOGY）
+   所有 Case Study 页面共享，加载于 case-shared.css 之后
+   ============================================================ */
+
+/* ---------- 通用区块标题（与各页 sec-head 风格一致） ---------- */
+.ps-sec { padding-top: clamp(72px, 9vw, 128px); }
+.ps-head {
+    display: flex;
+    align-items: flex-start;
+    gap: 28px;
+    margin-bottom: clamp(36px, 4vw, 56px);
+}
+.ps-num {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: clamp(40px, 4.6vw, 64px);
+    line-height: 1;
+    color: var(--text-faint);
+}
+.ps-head .section-label { display: block; margin-bottom: 14px; }
+.ps-title {
+    font-family: "Noto Serif SC", "Playfair Display", serif;
+    font-weight: 500;
+    font-size: clamp(28px, 3.2vw, 44px);
+    line-height: 1.15;
+    margin: 0;
+}
+
+/* ---------- 项目背景：大字引言 + 说明 ---------- */
+.ps-bg {
+    display: grid;
+    grid-template-columns: 1fr 1.3fr;
+    gap: clamp(32px, 4vw, 72px);
+    align-items: start;
+    padding: clamp(30px, 4vw, 56px) 0;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+}
+.ps-bg-quote {
+    font-family: "Noto Serif SC", serif;
+    font-size: clamp(20px, 2vw, 28px);
+    line-height: 1.8;
+    color: var(--text);
+    margin: 0;
+}
+.ps-bg-quote::before {
+    content: "“";
+    font-family: var(--font-serif);
+    font-size: 1.4em;
+    line-height: 0;
+    color: var(--text-faint);
+    vertical-align: -0.2em;
+    margin-right: 4px;
+}
+.ps-bg-text {
+    font-size: 14px;
+    line-height: 2;
+    color: var(--text-soft);
+    margin: 0;
+}
+
+/* ---------- AI 技术应用：工具 / 生成方式 / 工作流程 ---------- */
+.ps-tech-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+}
+.ps-tech-item { background: var(--bg); padding: clamp(26px, 2.6vw, 40px); }
+.ps-tech-en {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.24em;
+    color: var(--text-faint);
+    margin: 0 0 14px;
+}
+.ps-tech-item h3 {
+    font-family: "Noto Serif SC", serif;
+    font-weight: 500;
+    font-size: 20px;
+    margin: 0 0 14px;
+}
+.ps-tech-item p,
+.ps-tech-item ul {
+    margin: 0;
+    font-size: 13.5px;
+    line-height: 1.95;
+    color: var(--text-soft);
+}
+.ps-tech-item ul { padding-left: 18px; }
+.ps-tech-item ul li { margin-bottom: 6px; }
+.ps-tech-tags {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+.ps-tech-tags li {
+    font-size: 11.5px;
+    letter-spacing: 0.06em;
+    color: var(--text);
+    padding: 6px 12px;
+    border: 1px solid var(--line);
+    background: #FBF8F2;
+}
+
+/* ---------- 响应式 ---------- */
+@media (max-width: 900px) {
+    .ps-bg { grid-template-columns: 1fr; gap: 24px; }
+    .ps-tech-grid { grid-template-columns: 1fr; }
+}

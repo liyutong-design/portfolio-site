@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>我们可以互相嫌弃｜商业化升级版</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&family=ZCOOL+KuaiLe&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="app">
+
+  <!-- ===== Top bar ===== -->
+  <header class="topbar">
+    <div class="brand">
+      <h1 class="title">我们可以互相嫌弃<span class="dot">.</span></h1>
+      <p class="tagline"><span class="quote">「我们可以互相嫌弃，但你不能。」</span></p>
+    </div>
+    <div class="topbar-actions">
+      <!-- 阶段 2 新增：顶栏图标按钮组（阶段 4 绑定事件） -->
+      <button class="icon-btn always-show" id="menuBtn" title="目录">
+        <span class="ico">☰</span>
+      </button>
+      <button class="icon-btn" id="audioToggleBtn" title="音效开关" data-on="true">
+        <span class="ico">♪</span>
+      </button>
+      <button class="icon-btn" id="settingsBtn" title="设置">
+        <span class="ico">⚙</span>
+      </button>
+      <button class="icon-btn" id="achievementsBtn" title="成就墙">
+        <span class="ico">★</span>
+        <span class="dot-badge" id="achDotBadge" style="display:none"></span>
+      </button>
+    </div>
+    <!-- 旧 menu-btn 隐藏保留（向下兼容，game.js 仍可能引用） -->
+    <button class="menu-btn" id="menuBtnLegacy" style="display:none"><span class="ico">☰</span>目录</button>
+  </header>
+
+  <!-- ===== Stage ===== -->
+  <main class="stage">
+    <div class="chapter-row">
+      <span class="chapter" id="chapterLabel">前期 · 日常</span>
+      <span class="progress-text" id="progressText">事件 01 / 12</span>
+    </div>
+    <div class="progress-bar segmented"><div class="progress-fill" id="progressFill" style="width:8%"></div></div>
+
+    <!-- DORM（仅用于游戏开局或事件9跳过提示，不再是每次选择后的固定过渡页） -->
+    <div class="view dorm-view" data-state="DORM">
+      <div class="event-bg"></div>
+      <div class="event-bg-vignette"></div>
+      <div class="scene-card">
+        <div class="scene-time" id="sceneTime">404 寝室 · 故事开始</div>
+        <div class="scene-text" id="sceneText"></div>
+        <div class="scene-tip" id="sceneTip"></div>
+      </div>
+      <button class="continue-btn" id="triggerEventBtn">开始故事 →</button>
+    </div>
+
+    <!-- EVENT -->
+    <div class="view event-view" data-state="EVENT">
+      <div class="event-bg"></div>
+      <div class="event-bg-vignette"></div>
+      <!-- AVG 角色立绘层（阶段视觉升级 2）：背景之上、对话框/选项之下
+           结构预留双人物同屏：charSlotLeft（左位，暂未启用） + charSlotRight（右位主位） -->
+      <div class="char-stage" id="charStage" aria-hidden="true">
+        <div class="char-slot char-slot-left" id="charSlotLeft" data-char="" data-active="false"></div>
+        <div class="char-slot char-slot-right" id="charSlotRight" data-char="" data-active="false"></div>
+      </div>
+      <!-- 事件标题：保留 ID 供原 JS 引用，AVG 模式下视觉隐藏 -->
+      <h2 class="story-title" id="eventTitle" style="display:none">剁肉馅的清晨</h2>
+      <!-- 选项层：在 AVG 对话框上方居中弹出（继续按钮也在此渲染） -->
+      <div class="event-choices-overlay" id="choicesBox"></div>
+      <!-- 底部 AVG 对话框 -->
+      <div class="event-dialog-box" id="eventDialogBox">
+        <div class="speaker-name" id="eventSpeaker">404 寝室</div>
+        <div class="dialogue" id="eventDialogue"></div>
+      </div>
+    </div>
+
+    <!-- ENDING -->
+    <div class="view ending-view" data-state="ENDING">
+      <span class="ending-badge" id="endingBadge">结局</span>
+      <!-- 阶段 2 新增：结局评级（阶段 3 渲染） -->
+      <div class="ending-rating" id="endingRating" style="display:none"></div>
+      <h2 class="story-title" id="endingTitle" style="text-align:center;margin-top:14px"></h2>
+      <p class="ending-text" id="endingText"></p>
+      <div class="ending-core" id="endingCore">「我们可以互相嫌弃，但你不能。」</div>
+      <!-- 阶段 2 新增：结局彩蛋句（阶段 3 渲染） -->
+      <div class="ending-epilogue" id="endingEpilogue" style="display:none"></div>
+      <!-- 阶段 2 新增：本局关键选择回顾（阶段 4 渲染） -->
+      <div class="ending-keychoices" id="endingKeychoices" style="display:none"></div>
+      <!-- 阶段 2 新增：解锁内容提示（阶段 4 渲染） -->
+      <div class="ending-unlock-tip" id="endingUnlockTip" style="display:none"></div>
+      <div class="ending-actions">
+        <button class="continue-btn" id="endingRestartBtn">重新开始</button>
+        <!-- 阶段 2 新增：返回主菜单按钮（阶段 4 绑定） -->
+        <button class="btn btn-secondary" id="endingHomeBtn" style="display:none">回到主菜单</button>
+        <!-- 阶段 2 新增：查看成就按钮（阶段 4 绑定） -->
+        <button class="btn btn-secondary" id="endingAchBtn" style="display:none">查看成就</button>
+      </div>
+    </div>
+  </main>
+
+  <!-- ===== Right Sidebar（阶段 U·功能 2）：好感度 + 调试面板，可折叠，桌面常驻，移动/平板默认收起 ===== -->
+  <aside class="right-sidebar" id="rightSidebar" data-open="true">
+    <button class="sidebar-toggle" id="rightSidebarToggle" title="收起 / 展开侧边栏">
+      <span class="ico open-ico">◂</span>
+      <span class="ico close-ico">▸</span>
+    </button>
+    <div class="sidebar-scroll">
+
+      <!-- 角色肖像（阶段 U·功能 3）：在对话中自动切换 -->
+      <div class="sidebar-portrait" id="sidebarPortrait">
+        <div class="portrait-frame" id="portraitFrame">
+          <svg viewBox="0 0 200 200" class="portrait-svg" id="portraitSvg" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"></svg>
+          <div class="portrait-name" id="portraitName">404 寝室</div>
+        </div>
+      </div>
+
+      <!-- 好感度列表 -->
+      <div class="sidebar-section" data-open="true">
+        <button class="section-hd" data-toggle-target="#rightAffectionList">
+          <span class="ico">💞</span><span>室友关系</span><span class="arr">▾</span>
+        </button>
+        <div class="section-bd open" id="rightAffectionList"></div>
+      </div>
+
+      <!-- 程序运行面板（验收用） -->
+      <div class="sidebar-section" data-open="false">
+        <button class="section-hd" data-toggle-target="#rightDebugPanel">
+          <span class="ico">🛠</span><span>程序运行面板</span><span class="arr">▸</span>
+        </button>
+        <div class="section-bd" id="rightDebugPanel">
+          <div class="debug-view" id="rightDebugView"></div>
+          <div class="debug-note">* 仅用于程序内部数据验收，正常游戏无需查看。</div>
+        </div>
+      </div>
+
+    </div>
+  </aside>
+
+</div>
+
+<!-- ===== Drawer ===== -->
+<div class="drawer-mask" id="drawerMask"></div>
+<aside class="drawer" id="drawer">
+  <div class="drawer-header">
+    <span class="dh-title">☰ 游戏目录</span>
+    <button class="close-btn" id="closeDrawerBtn">×</button>
+  </div>
+  <div class="drawer-body">
+
+    <!-- 阶段 2 新增：分类导航（阶段 4 绑定切换） -->
+    <nav class="drawer-nav" id="drawerNav">
+      <button class="drawer-nav-item active" data-panel="progress">进度</button>
+      <button class="drawer-nav-item" data-panel="roommates">室友</button>
+      <button class="drawer-nav-item" data-panel="achievements">成就</button>
+      <button class="drawer-nav-item" data-panel="cg">CG</button>
+      <button class="drawer-nav-item" data-panel="replay">回看</button>
+      <button class="drawer-nav-item" data-panel="log">日志</button>
+      <button class="drawer-nav-item" data-panel="settings">设置</button>
+      <button class="drawer-nav-item" data-panel="debug">调试</button>
+    </nav>
+
+    <!-- 当前进度面板（默认显示） -->
+    <div class="drawer-panel active" data-panel="progress">
+      <div class="drawer-section">
+        <div class="ds-label">当前进度</div>
+        <div class="ds-progress" id="drawerProgress">第 1 天 · 事件 01 / 12</div>
+      </div>
+      <div class="drawer-section">
+        <button class="drawer-action danger" id="drawerRestartBtn">重新开始</button>
+      </div>
+    </div>
+
+    <!-- 室友关系面板 -->
+    <div class="drawer-panel" data-panel="roommates">
+      <div class="drawer-section">
+        <button class="section-toggle open" id="toggleRoommates"><span>室友关系</span><span class="arr">▸</span></button>
+        <div class="section-body open" id="roommateSection">
+          <div id="roommateList"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 成就墙面板（阶段 4 填充内容） -->
+    <div class="drawer-panel" data-panel="achievements">
+      <div class="drawer-section">
+        <div class="ds-label">成就墙</div>
+        <div class="achievement-grid" id="achievementGrid">
+          <div class="empty-hint">成就系统将在阶段 4 解锁</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CG 图鉴面板（阶段 4 填充内容） -->
+    <div class="drawer-panel" data-panel="cg">
+      <div class="drawer-section">
+        <div class="ds-label">CG 图鉴</div>
+        <div class="cg-gallery" id="cgGallery">
+          <div class="empty-hint">CG 图鉴将在阶段 4 解锁</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 章节回看面板（阶段 4 填充内容） -->
+    <div class="drawer-panel" data-panel="replay">
+      <div class="drawer-section">
+        <div class="ds-label">章节回看</div>
+        <div class="chapter-timeline" id="chapterTimeline">
+          <div class="empty-hint">章节回看将在阶段 4 解锁</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 历史日志面板（阶段 5 填充内容） -->
+    <div class="drawer-panel" data-panel="log">
+      <div class="drawer-section">
+        <div class="ds-label">历史日志</div>
+        <div id="historyLog">
+          <div class="empty-hint">历史日志将在阶段 5 解锁</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 设置面板（阶段 4 绑定事件） -->
+    <div class="drawer-panel" data-panel="settings">
+      <div class="drawer-section">
+        <div class="ds-label">游戏设置</div>
+        <div class="settings-list" id="settingsList">
+          <div class="setting-row">
+            <div>
+              <div class="setting-label">音效</div>
+              <div class="setting-desc">按钮与好感度变化音效</div>
+            </div>
+            <div class="toggle-switch on" id="soundToggle" data-on="true"></div>
+          </div>
+          <div class="setting-row">
+            <div>
+              <div class="setting-label">打字机速度</div>
+              <div class="setting-desc">剧情文字逐字显现速度</div>
+            </div>
+            <div class="setting-control" id="typeSpeedControl">
+              <button class="seg-btn" data-value="slow">慢</button>
+              <button class="seg-btn active" data-value="medium">中</button>
+              <button class="seg-btn" data-value="fast">快</button>
+              <button class="seg-btn" data-value="off">关</button>
+            </div>
+          </div>
+          <div class="setting-row">
+            <div>
+              <div class="setting-label">字号</div>
+              <div class="setting-desc">正文字号调整</div>
+            </div>
+            <div class="setting-control" id="fontSizeControl">
+              <button class="seg-btn" data-value="small">小</button>
+              <button class="seg-btn active" data-value="medium">中</button>
+              <button class="seg-btn" data-value="large">大</button>
+            </div>
+          </div>
+          <div class="setting-row" style="flex-direction:column;align-items:stretch;gap:var(--sp-2)">
+            <button class="drawer-action danger" id="clearAllBtn">清除所有数据（含成就）</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 程序运行面板（验收用，保留原结构） -->
+    <div class="drawer-panel" data-panel="debug">
+      <div class="drawer-section">
+        <button class="section-toggle" id="toggleDebug"><span>程序运行面板（验收用）</span><span class="arr">▸</span></button>
+        <div class="section-body" id="debugSection">
+          <div class="debug-view" id="debugPanel"></div>
+          <div class="debug-note">* 仅用于程序内部数据验收，正常游戏无需查看。</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</aside>
+
+<!-- ===== Welcome ===== -->
+<div class="welcome" id="welcome">
+  <!-- 封面屏幕：16:9 全屏铺满背景图 + 菜单按钮 -->
+  <div class="cover-screen">
+    <div class="cover-bg"></div>
+    <div class="cover-vignette"></div>
+    <nav class="cover-menu">
+      <button class="cover-btn primary" id="startBtn" type="button">
+        <span class="cb-label">开始剧情</span>
+      </button>
+      <button class="cover-btn" id="loadBtn" type="button" disabled>
+        <span class="cb-label">读取进度</span>
+        <span class="cb-sub" id="loadBtnSub">无存档</span>
+      </button>
+      <button class="cover-btn" id="helpBtn" type="button">
+        <span class="cb-label">游戏说明</span>
+      </button>
+    </nav>
+    <div class="cover-footer">「我们可以互相嫌弃，但你不能。」</div>
+  </div>
+
+  <!-- 输入名字小模态（点击「开始剧情」时弹出） -->
+  <div class="name-modal" id="nameModal" data-open="false">
+    <div class="name-card">
+      <div class="name-title">请输入你的名字</div>
+      <div class="w-input-wrap">
+        <input type="text" id="welcomeName" placeholder="输入你的名字" maxlength="8" autocomplete="off">
+      </div>
+      <div class="name-actions">
+        <button class="cover-btn ghost" id="nameCancelBtn" type="button">取消</button>
+        <button class="cover-btn primary" id="enterBtn" type="button">确认</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 游戏说明模态 -->
+  <div class="help-modal" id="helpModal" data-open="false">
+    <div class="help-card">
+      <div class="help-title">游戏说明</div>
+      <div class="help-body">
+        <p>欢迎来到 404 寝室。这里有四个又烦又离谱的女室友。你即将和她们度过一段鸡飞狗跳的寝室日常——直到有一天，你被外人纠缠……</p>
+        <p><b>玩法</b>：阅读剧情 → 出现选项时选择 → 影响室友好感度 → 走向不同结局。</p>
+        <p><b>操作</b>：点击对话框或屏幕空白处可推进下一段剧情；按空格 / 回车也可推进。</p>
+        <p><b>提示</b>：好感度变化会短暂显示在画面右上角。</p>
+      </div>
+      <div class="help-actions">
+        <button class="cover-btn primary" id="helpCloseBtn" type="button">知道了</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 兼容旧结构（隐藏，保留 ID 不破坏原 JS 引用） -->
+  <a href="#" class="w-resume-card" id="resumeCard" style="display:none">检测到存档 · <b id="resumeSummary">继续上次进度</b></a>
+  <div class="w-resume" id="welcomeResume" style="display:none">检测到存档 · <a href="#" id="resumeLink">继续上次进度</a></div>
+</div>
+
+<!-- ===== 好感度变化 toast 层（AVG 模式专用） ===== -->
+<div class="aff-toast-layer" id="affToastLayer"></div>
+
+<!-- ===== 阶段 2 新增：Toast 通知容器（阶段 4 使用） ===== -->
+<div class="toast-container" id="toastContainer"></div>
+
+<!-- ===== 阶段 2 新增：模态弹窗容器（阶段 4 使用） ===== -->
+<div class="modal-mask" id="modalMask">
+  <div class="modal-card" id="modalCard">
+    <div class="modal-title" id="modalTitle">确认操作</div>
+    <div class="modal-desc" id="modalDesc">确定要执行此操作吗？</div>
+    <div class="modal-actions">
+      <button class="btn btn-secondary" id="modalCancelBtn">取消</button>
+      <button class="btn" id="modalConfirmBtn">确认</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== 脚本按依赖顺序加载（非 defer，依赖加载顺序） ===== -->
+<script src="data.js"></script>
+<script src="storage.js"></script>
+<script src="audio.js"></script>
+<script src="ui.js"></script>
+<script src="game.js"></script>
+</body>
+</html>

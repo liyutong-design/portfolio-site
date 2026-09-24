@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visual Works — LI YUETONG</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Noto+Serif+SC:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        body { background: var(--bg); padding-top: 88px; }
+        .works-page { max-width: var(--container); margin: 0 auto; padding: 40px var(--gutter) 120px; }
+        .works-back { display:inline-block; font-size:11px; font-weight:500; letter-spacing:.24em; color:var(--text-soft); margin-bottom:48px; }
+        .works-back:hover { color:var(--text); }
+        .works-hero { margin-bottom: 80px; }
+        .works-hero .section-label { display:block; margin-bottom:20px; }
+        .works-hero h1 {
+            font-family: var(--font-serif);
+            font-weight: 600;
+            font-size: clamp(36px, 5vw, 72px);
+            line-height: 1.05;
+            margin: 0 0 16px;
+        }
+        .works-hero p {
+            max-width: 600px;
+            font-size: 14px;
+            line-height: 1.9;
+            color: var(--text-soft);
+        }
+        .works-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: clamp(32px, 4vw, 64px);
+        }
+        .works-item { display: block; color: inherit; text-decoration: none; }
+        .works-item .work__media { position: relative; overflow: hidden; background: var(--bg-deep); border: 1px solid #e8e1d4; }
+        .works-item .work__img { display:block; width:100%; aspect-ratio: 4/3; object-fit: contain; padding:12px; box-sizing:border-box; transition: transform 1s var(--ease); }
+        .works-item:hover .work__img { transform: scale(1.04); }
+        .works-item .work__overlay-view {
+            position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+            background: rgba(27,23,20,0); color:transparent; font-size:11px; letter-spacing:.22em; font-weight:600;
+            transition: background .5s var(--ease), color .5s var(--ease); pointer-events:none;
+        }
+        .works-item:hover .work__overlay-view { background: rgba(27,23,20,0.28); color:#f4eee3; }
+        .works-item .work__meta { display:flex; align-items:baseline; gap:16px; padding-top:16px; }
+        .works-item .work__num { font-family:var(--font-serif); font-style:italic; font-size:15px; color:var(--text-faint); }
+        .works-item .work__heading h3 { margin:0; font-family:var(--font-serif); font-weight:600; font-size:15px; letter-spacing:.04em; }
+        .works-item .work__heading p { margin:4px 0 0; font-size:12px; color:var(--text-soft); }
+        @media (max-width:720px) { .works-grid { grid-template-columns: 1fr; gap: 40px; } }
+    </style>
+</head>
+<body>
+
+    <nav class="nav nav--solid" id="nav">
+        <a href="index.html" class="nav__logo">LI YUETONG</a>
+        <div class="nav__links">
+            <a href="index.html#works" class="nav__link">WORK</a>
+            <a href="works.html" class="nav__link">VISUAL WORKS</a>
+            <a href="index.html#about" class="nav__link">ABOUT</a>
+            <a href="index.html#contact" class="nav__link">CONTACT</a>
+        </div>
+    </nav>
+
+    <main class="works-page">
+        <a class="works-back" href="index.html">← BACK TO HOME</a>
+
+        <header class="works-hero">
+            <p class="section-label">VISUAL WORKS&nbsp;&nbsp;—&nbsp;&nbsp;2026</p>
+            <h1>Visual Works</h1>
+            <p>AI 辅助下的商业广告、多元素融合、时尚重构、空间改造、空间风格迁移、角色风格迁移、电商产品详情长图及视觉融合作品。点击进入每个项目查看完整案例。</p>
+        </header>
+
+        <div class="works-grid">
+
+            <a class="works-item" href="case-commercial.html">
+                <div class="work__media">
+                    <img class="work__img" src="assets/explorations/commercial/cover.png" alt="AI 商业广告视觉设计">
+                    <span class="work__overlay-view">VIEW PROJECT ↗</span>
+                </div>
+                <div class="work__meta">
+                    <span class="work__num">01</span>
+                    <div class="work__heading">
+                        <h3>COMMERCIAL VISUAL</h3>
+                        <p>AI 商业广告视觉设计</p>
+                    </div>
+                </div>
+            </a>
+
+            <a class="works-item" href="case-fusion.html">
+                <div class="work__media">
+                    <img class="work__img" src="assets/explorations/fusion/cover.png" alt="AI 多元素视觉融合设计">
+                    <span class="work__overlay-view">VIEW PROJECT ↗</span>
+                </div>
+                <div class="work__meta">
+                    <span class="work__num">02</span>
+                    <div class="work__heading">
+                        <h3>AI VISUAL FUSION</h3>
+                        <p>AI 多元素视觉融合设计</p>
+                    </div>
+                </div>
+            </a>
+
+            <a class="works-item" href="case-fashion.html">
+                <div class="work__media">
+                    <img class="work__img" src="assets/explorations/fashion/f1-after.png" alt="AI 时尚风格重构设计">
+                    <span class="work__overlay-view">VIEW PROJECT ↗</span>
+                </div>
+                <div class="work__meta">
+                    <span class="work__num">03</span>
+                    <div class="work__heading">
+                        <h3>FASHION RECONSTRUCTION</h3>
+                        <p>AI 时尚风格重构设计</p>
+                    </div>
+                </div>
+            </a>
+
+            <a class="works-item" href="case-spatial.html">
+                <div class="work__media">
+                    <img class="work__img" src="assets/explorations/spatial/cover.png" alt="AI 空间改造设计">
+                    <span class="work__overlay-view">VIEW PROJECT ↗</span>
+                </div>
+                <div class="work__meta">
+                    <span class="work__num">04</span>
+                    <div class="work__heading">
+                        <h3>SPATIAL RECONSTRUCTION</h3>
+                        <p>AI 空间改造设计</p>
+                    </div>
+                </div>
+            </a>
+
+            <a class="works-item" href="case-spatial-style.html">
+                <div class="work__media">
+                    <img class="work__img" src="assets/explorations/spatial-style/cover.png" alt="AI 空间风格迁移">
+                    <span class="work__overlay-view">VIEW PROJECT ↗</span>
+                </div>
+                <div class="work__meta">
+                    <span class="work__num">05</span>
+                    <div class="work__heading">
+                        <h3>SPATIAL STYLE TRANSFER</h3>
+                        <p>AI 空间风格迁移</p>
+                    </div>
+                </div>
+            </a>
+
+            <a class="works-item" href="case-character-style.html">
+                <div class="work__media">
+                    <img class="work__img" src="assets/explorations/character-style/cover.png" alt="AI 角色风格迁移设计">
+                    <span class="work__overlay-view">VIEW PROJECT ↗</span>
+                </div>
+                <div class="work__meta">
+                    <span class="work__num">06</span>
+                    <div class="work__heading">
+                        <h3>CHARACTER STYLE TRANSFER</h3>
+                        <p>AI 角色风格迁移设计</p>
+                    </div>
+                </div>
+            </a>
+
+            <a class="works-item" href="case-ecommerce.html">
+                <div class="work__media">
+                    <img class="work__img" src="assets/explorations/commercial/ecommerce/e1.png" alt="电商产品详情长图海报">
+                    <span class="work__overlay-view">VIEW PROJECT ↗</span>
+                </div>
+                <div class="work__meta">
+                    <span class="work__num">07</span>
+                    <div class="work__heading">
+                        <h3>E-COMMERCE LONG POSTER</h3>
+                        <p>电商产品详情长图海报</p>
+                    </div>
+                </div>
+            </a>
+
+            <a class="works-item" href="case-visual-fusion.html">
+                <div class="work__media">
+                    <img class="work__img" src="assets/explorations/visual-fusion/vf1.jpg" alt="AI视觉融合设计">
+                    <span class="work__overlay-view">VIEW PROJECT ↗</span>
+                </div>
+                <div class="work__meta">
+                    <span class="work__num">08</span>
+                    <div class="work__heading">
+                        <h3>VISUAL FUSION</h3>
+                        <p>AI视觉融合设计</p>
+                    </div>
+                </div>
+            </a>
+
+        </div>
+    </main>
+
+    <script src="js/nav-memory.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

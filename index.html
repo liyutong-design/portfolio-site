@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>李悦彤 LI YUETONG — AI Visual Creator</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="is-loading body--home">
+
+    <!-- ===== Particle Intro Canvas ===== -->
+    <div class="intro" id="intro" aria-hidden="true">
+        <canvas class="intro__canvas" id="intro-canvas"></canvas>
+    </div>
+
+    <!-- ===== Navigation ===== -->
+    <nav class="nav" id="nav">
+        <a href="#top" class="nav__logo">LI YUETONG</a>
+        <div class="nav__links">
+            <a href="#works" class="nav__link">WORK</a>
+            <a href="works.html" class="nav__link">VISUAL WORKS</a>
+            <a href="#about" class="nav__link">ABOUT</a>
+            <a href="#contact" class="nav__link">CONTACT</a>
+        </div>
+    </nav>
+
+    <!-- ===== Hero — 参考图 16:9 全屏封面，图内已含完整排版，桌面端不再叠加重复文字 ===== -->
+    <header class="hero" id="top">
+
+        <img class="hero__bg" src="assets/hero.png"
+             alt="李悦彤 LI YUETONG — AI Visual Creator，Digital Media Designer">
+
+        <!-- 桌面横屏：图内印有导航文字，这里放置与其位置精确对齐的透明可点击热区
+             （位置由 main.js 按 cover 映射计算）；竖屏时隐藏 -->
+        <div class="hero__navhots">
+            <a class="hero__navhot" href="#works"   data-u1="0.756" data-u2="0.797" aria-label="WORK"></a>
+            <a class="hero__navhot" href="#about"   data-u1="0.813" data-u2="0.858" aria-label="ABOUT"></a>
+            <a class="hero__navhot" href="#contact" data-u1="0.875" data-u2="0.932" aria-label="CONTACT"></a>
+        </div>
+
+        <!-- 与图内圆形箭头对齐的可点击热区，点击平滑滚动到作品区 -->
+        <a href="#works" class="hero__scroll-hot" aria-label="SCROLL TO EXPLORE">
+            <span class="hero__scroll-ring" aria-hidden="true"></span>
+        </a>
+
+        <!-- 竖屏/窄屏备用排版（此时 cover 会裁掉图内文字，才显示这套文字） -->
+        <div class="hero__fallback">
+            <p class="hero__fallback-cn">李&nbsp;悦&nbsp;彤</p>
+            <h1 class="hero__fallback-name">LI YUETONG</h1>
+            <p class="hero__fallback-role">AI VISUAL CREATOR</p>
+            <p class="hero__fallback-sub">Digital Media Designer</p>
+            <p class="hero__fallback-intro">以 AI 为创作工具，探索人物、空间、商业视觉与动态内容的多种表达方式。</p>
+            <a href="#works" class="hero__fallback-scroll">SCROLL TO EXPLORE ↓</a>
+        </div>
+
+    </header>
+
+    <!-- ===== Featured Projects ===== -->
+    <section class="featured" id="works">
+        <header class="featured__head reveal-el">
+            <p class="section-label">FEATURED PROJECTS&nbsp;&nbsp;—&nbsp;&nbsp;2026</p>
+            <h2 class="section-serif">核心代表作 <span class="featured__head-en">/ SELECTED CASE STUDIES</span></h2>
+        </header>
+
+        <!-- 01 AI Image Generation Tool — extra-wide horizontal -->
+        <article class="case case--tool reveal-el" data-depth-scope>
+            <a href="case-tool.html" class="case__link">
+                <div class="case__stage">
+                    <!-- 第一视觉：成品图 1（该工具真实生成结果） -->
+                    <div class="case__hero">
+                        <span class="case__hero-tag">GENERATED WITH THIS TOOL</span>
+                        <div class="case__hero-imgwrap">
+                            <div class="case__hero-zoom">
+                                <img class="js-depth" data-depth="-0.45" data-scale="1.06" src="assets/featured/tool-result.jpg" alt="该工具生成的 AI 图片结果：白发天使少女，云端教堂与白玫瑰">
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 第二视觉：真实工具界面，以悬浮窗口叠层 -->
+                    <div class="case__ui">
+                        <span class="case__browserbar"><i></i><i></i><i></i><b>AI 生图工具 · localhost:8765</b></span>
+                        <div class="case__ui-imgwrap">
+                            <img class="js-depth" data-depth="0.28" data-scale="1.03" src="assets/featured/tool-ui-top.png" alt="AI 生图工具真实界面：人设模板、人物属性、提示词预览与生成操作">
+                        </div>
+                    </div>
+                    <span class="case__flow">PROMPT&nbsp;&nbsp;→&nbsp;&nbsp;AI&nbsp;&nbsp;→&nbsp;&nbsp;VISUAL</span>
+                </div>
+                <div class="case__info">
+                    <span class="case__num">01</span>
+                    <div class="case__heading">
+                        <h3 class="case__title">AI IMAGE GENERATION TOOL</h3>
+                        <p class="case__cn">AI 生图工具</p>
+                        <p class="case__sub">From Prompt to Visual</p>
+                        <p class="case__tags">Product Design · AI Generation · UI/UX · Development</p>
+                    </div>
+                    <span class="case__cta">VIEW CASE STUDY ↗</span>
+                </div>
+            </a>
+        </article>
+
+        <!-- 02 Interactive Story — image left, character sprite breaking out -->
+        <article class="case case--story reveal-el" data-depth-scope>
+            <a href="case-story.html" class="case__link">
+                <div class="case__stage">
+                    <div class="case__screen">
+                        <img class="js-depth" data-depth="0.25" src="assets/featured/story-gameplay.png" alt="《我们可以互相嫌弃》真实游戏运行界面：剧情对话与好感度面板">
+                    </div>
+                    <img class="case__char js-depth" data-depth="0.55" src="assets/featured/char-shen.png" alt="游戏人物立绘：沈星河">
+                </div>
+                <div class="case__info">
+                    <span class="case__num">02</span>
+                    <div class="case__heading">
+                        <h3 class="case__title">INTERACTIVE STORY</h3>
+                        <p class="case__cn">《我们可以互相嫌弃》</p>
+                        <p class="case__sub">AI ASSISTED INTERACTIVE STORY</p>
+                        <p class="case__tags">Character Design · Interactive Narrative · AI-assisted Development</p>
+                    </div>
+                    <span class="case__cta">VIEW CASE STUDY ↗</span>
+                </div>
+            </a>
+        </article>
+
+        <!-- 03 AI Comic & Video — text left, cinematic letterbox frames right -->
+        <article class="case case--comic reveal-el" data-depth-scope>
+            <a href="case-comic.html" class="case__link">
+                <div class="case__info">
+                    <span class="case__num">03</span>
+                    <div class="case__heading">
+                        <h3 class="case__title">AI COMIC &amp; VIDEO</h3>
+                        <p class="case__cn">《穷鬼租客》</p>
+                        <p class="case__tags">Script · Storyboard · AI Visual · Image-to-Video · Editing</p>
+                        <p class="case__note">完整 Case Study · 角色设定 / 场景 / 分镜 / 第一集成片</p>
+                    </div>
+                    <span class="case__cta">VIEW CASE STUDY ↗</span>
+                </div>
+                <div class="case__stage">
+                    <div class="case__cinema">
+                        <div class="case__frame case__frame--side">
+                            <img class="js-depth" data-depth="0.3" src="assets/featured/comic-frame-2.png" alt="《穷鬼租客》夜晚窗前角色画面">
+                        </div>
+                        <div class="case__frame case__frame--main">
+                            <img class="js-depth" data-depth="-0.45" src="assets/featured/comic-frame-1.png" alt="《穷鬼租客》女主角特写画面">
+                        </div>
+                        <div class="case__frame case__frame--side">
+                            <img class="js-depth" data-depth="0.5" src="assets/featured/comic-frame-3.png" alt="《穷鬼租客》双人对手戏画面">
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </article>
+    </section>
+
+    <!-- ===== Visual Explorations — 7 项目封面预览 + 总入口 ===== -->
+    <section class="explorations" id="explorations">
+        <header class="explorations__head reveal-el">
+            <p class="section-label">VISUAL EXPLORATIONS&nbsp;&nbsp;—&nbsp;&nbsp;2026</p>
+            <h2 class="section-serif">视觉创作</h2>
+            <p class="explorations__sub">商业广告 · 多元素融合 · 时尚重构 · 空间改造 · 空间风格迁移 · 角色风格迁移 · 电商详情长图 · 视觉融合</p>
+        </header>
+
+        <div class="ex-grid">
+
+            <a class="ex-item reveal-el" href="case-commercial.html">
+                <div class="ex-media">
+                    <img class="ex-img" src="assets/explorations/commercial/cover.png" alt="AI 商业广告视觉设计封面">
+                    <span class="ex-view">VIEW PROJECT&nbsp;↗</span>
+                </div>
+                <div class="ex-meta">
+                    <span class="ex-num">01</span>
+                    <div class="ex-text">
+                        <p class="ex-name">AI商业广告视觉设计</p>
+                        <p class="ex-cat">COMMERCIAL VISUAL</p>
+                    </div>
+                </div>
+            </a>
+
+            <a class="ex-item reveal-el" href="case-fusion.html">
+                <div class="ex-media">
+                    <img class="ex-img" src="assets/explorations/fusion/cover.png" alt="AI 多元素视觉融合设计封面">
+                    <span class="ex-view">VIEW PROJECT&nbsp;↗</span>
+                </div>
+                <div class="ex-meta">
+                    <span class="ex-num">02</span>
+                    <div class="ex-text">
+                        <p class="ex-name">AI多元素视觉融合设计</p>
+                        <p class="ex-cat">AI VISUAL FUSION</p>
+                    </div>
+                </div>
+            </a>
+
+            <a class="ex-item reveal-el" href="case-fashion.html">
+                <div class="ex-media">
+                    <img class="ex-img" src="assets/explorations/fashion/f1-after.png" alt="AI 时尚风格重构设计封面">
+                    <span class="ex-view">VIEW PROJECT&nbsp;↗</span>
+                </div>
+                <div class="ex-meta">
+                    <span class="ex-num">03</span>
+                    <div class="ex-text">
+                        <p class="ex-name">AI时尚风格重构设计</p>
+                        <p class="ex-cat">FASHION RECONSTRUCTION</p>
+                    </div>
+                </div>
+            </a>
+
+            <a class="ex-item reveal-el" href="case-spatial.html">
+                <div class="ex-media">
+                    <img class="ex-img" src="assets/explorations/spatial/cover.png" alt="AI 空间改造设计封面">
+                    <span class="ex-view">VIEW PROJECT&nbsp;↗</span>
+                </div>
+                <div class="ex-meta">
+                    <span class="ex-num">04</span>
+                    <div class="ex-text">
+                        <p class="ex-name">AI空间改造设计</p>
+                        <p class="ex-cat">SPATIAL RECONSTRUCTION</p>
+                    </div>
+                </div>
+            </a>
+
+            <a class="ex-item reveal-el" href="case-spatial-style.html">
+                <div class="ex-media">
+                    <img class="ex-img" src="assets/explorations/spatial-style/cover.png" alt="AI 空间风格迁移封面">
+                    <span class="ex-view">VIEW PROJECT&nbsp;↗</span>
+                </div>
+                <div class="ex-meta">
+                    <span class="ex-num">05</span>
+                    <div class="ex-text">
+                        <p class="ex-name">AI空间风格迁移</p>
+                        <p class="ex-cat">SPATIAL STYLE TRANSFER</p>
+                    </div>
+                </div>
+            </a>
+
+            <a class="ex-item reveal-el" href="case-character-style.html">
+                <div class="ex-media">
+                    <img class="ex-img" src="assets/explorations/character-style/cover.png" alt="AI 角色风格迁移设计封面">
+                    <span class="ex-view">VIEW PROJECT&nbsp;↗</span>
+                </div>
+                <div class="ex-meta">
+                    <span class="ex-num">06</span>
+                    <div class="ex-text">
+                        <p class="ex-name">AI角色风格迁移设计</p>
+                        <p class="ex-cat">CHARACTER STYLE TRANSFER</p>
+                    </div>
+                </div>
+            </a>
+
+            <a class="ex-item reveal-el" href="case-ecommerce.html">
+                <div class="ex-media">
+                    <img class="ex-img" src="assets/explorations/commercial/ecommerce/e1.png" alt="电商产品详情长图海报封面">
+                    <span class="ex-view">VIEW PROJECT&nbsp;↗</span>
+                </div>
+                <div class="ex-meta">
+                    <span class="ex-num">07</span>
+                    <div class="ex-text">
+                        <p class="ex-name">电商产品详情长图海报</p>
+                        <p class="ex-cat">E-COMMERCE LONG POSTER</p>
+                    </div>
+                </div>
+            </a>
+
+            <a class="ex-item reveal-el" href="case-visual-fusion.html">
+                <div class="ex-media">
+                    <img class="ex-img" src="assets/explorations/visual-fusion/vf1.jpg" alt="AI视觉融合设计封面">
+                    <span class="ex-view">VIEW PROJECT&nbsp;↗</span>
+                </div>
+                <div class="ex-meta">
+                    <span class="ex-num">08</span>
+                    <div class="ex-text">
+                        <p class="ex-name">AI视觉融合设计</p>
+                        <p class="ex-cat">VISUAL FUSION</p>
+                    </div>
+                </div>
+            </a>
+
+        </div>
+
+        <a href="works.html" class="explorations__cta reveal-el">
+            <span class="explorations__cta-text">进入 Visual Works 查看全部 8 个项目</span>
+            <span class="explorations__cta-arrow">↗</span>
+        </a>
+    </section>
+
+    <!-- ===== About ===== -->
+    <section class="about" id="about">
+        <p class="section-label">ABOUT&nbsp;&nbsp;—&nbsp;&nbsp;01</p>
+        <p class="about__text">
+            李悦彤，视觉传达设计专业，主要进行 AI 视觉生成、商业视觉设计与视频内容创作。擅长将 AI 生图与传统设计、后期制作相结合，并尝试通过 AI 辅助开发完成生图工具与互动网页。从创意构思、视觉生成到后期制作，持续探索 AI 在实际视觉项目中的应用。
+        </p>
+    </section>
+
+    <!-- ===== Skills ===== -->
+    <section class="skills">
+        <p class="section-label">SKILLS&nbsp;&nbsp;—&nbsp;&nbsp;02</p>
+        <div class="skills__grid">
+
+            <div class="skills__group">
+                <h3 class="skills__category">AI CREATION</h3>
+                <p class="skills__list">ChatGPT / ComfyUI / Coze / AI Image Generation / Prompt Design / Reference Control</p>
+            </div>
+
+            <div class="skills__group">
+                <h3 class="skills__category">DESIGN &amp; VISUAL</h3>
+                <p class="skills__list">Photoshop / CorelDRAW / Visual Design / Image Editing / Photography</p>
+            </div>
+
+            <div class="skills__group">
+                <h3 class="skills__category">VIDEO &amp; POST</h3>
+                <p class="skills__list">Premiere Pro / After Effects / DaVinci Resolve / CapCut / Video Editing</p>
+            </div>
+
+        </div>
+
+        <div class="skills__extra">
+            <h3 class="skills__extra-category">AI ASSISTED DEV</h3>
+            <p class="skills__extra-list">TRAE / AI-assisted Coding / Interactive Web / Prototype / Testing</p>
+        </div>
+    </section>
+
+    <!-- ===== Footer / Contact ===== -->
+    <footer class="footer" id="contact">
+        <h2 class="footer__title">
+            <span class="footer__title-line">LET'S CREATE</span>
+            <span class="footer__title-line">SOMETHING NEW.</span>
+        </h2>
+
+        <div class="footer__contact reveal-el">
+            <div class="fct-col fct-intro">
+                <p class="fct-label">GET IN TOUCH</p>
+                <p class="fct-name">李悦彤 / LI YUETONG</p>
+                <p class="fct-focus-line">AI视觉设计 / 视觉设计 / 视频创作</p>
+                <p class="fct-en">Open to opportunities &amp; creative collaborations.</p>
+                <p class="fct-cn">欢迎设计、AI视觉、视频创作相关的工作机会与项目合作。</p>
+            </div>
+            <div class="fct-col">
+                <p class="fct-label">EMAIL</p>
+                <p class="fct-value"><a class="fct-link" href="mailto:401362300@qq.com">401362300@qq.com</a></p>
+                <p class="fct-label fct-label--gap">PHONE</p>
+                <p class="fct-value"><a class="fct-link" href="tel:+8618768959634">18768959634</a></p>
+            </div>
+            <div class="fct-col">
+                <p class="fct-label">LOCATION</p>
+                <p class="fct-value">Henan, China</p>
+                <p class="fct-label fct-label--gap">SKILLS</p>
+                <p class="fct-value fct-skills">
+                    <span>AI视觉生成</span><span>商业视觉设计</span><span>视频剪辑</span><span>AI辅助开发</span>
+                </p>
+            </div>
+            <div class="fct-col fct-resume-col">
+                <a class="fct-resume" href="assets/docs/李悦彤简历.pdf" target="_blank" rel="noopener noreferrer">
+                    <span class="fct-resume-text">DOWNLOAD RESUME</span>
+                    <span class="fct-resume-arrow" aria-hidden="true">↗</span>
+                </a>
+            </div>
+        </div>
+
+        <p class="footer__copyright">LI YUETONG © 2026</p>
+    </footer>
+
+    <script src="js/nav-memory.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
