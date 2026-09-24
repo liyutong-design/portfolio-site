@@ -94,9 +94,10 @@
 
         /* 首页三大代表作的 Case Study 标题覆盖（详情页下一阶段完整制作） */
         const CASE_OVERRIDES = {
-            tool:  { num: 'CASE STUDY 01', title: 'AI IMAGE GENERATION TOOL', cn: 'AI 生图工具 · From Prompt to Visual' },
-            story: { num: 'CASE STUDY 02', title: 'INTERACTIVE STORY',         cn: '《我们可以互相嫌弃》 · AI Assisted Interactive Story' },
-            comic: { num: 'CASE STUDY 03', title: 'AI COMIC & VIDEO',          cn: '《穷鬼租客》 · AI Comic & Video Creation' }
+            tool:    { num: 'CASE STUDY 01', title: 'AI IMAGE GENERATION TOOL', cn: 'AI 生图工具 · From Prompt to Visual' },
+            story:   { num: 'CASE STUDY 02', title: 'INTERACTIVE STORY',         cn: '《我们可以互相嫌弃》 · AI Assisted Interactive Story' },
+            rebirth: { num: 'CASE STUDY 03', title: 'AI COMIC SERIES',          cn: '《重生之我回到了末日前》 · AI Comic Series' },
+            comic:   { num: 'CASE STUDY 04', title: 'AI COMIC & VIDEO',          cn: '《穷鬼租客》 · AI Comic & Video Creation' }
         };
 
         const params = new URLSearchParams(window.location.search);
@@ -106,6 +107,7 @@
         if (caseKey === 'story') { window.location.replace('case-story.html'); }
         if (caseKey === 'tool')  { window.location.replace('case-tool.html'); }
         if (caseKey === 'comic') { window.location.replace('case-comic.html'); }
+        if (caseKey === 'rebirth') { window.location.replace('case-rebirth.html'); }
         if (id === '1') { window.location.replace('case-fusion.html'); }
         if (id === '2') { window.location.replace('case-commercial.html'); }
         if (id === '3') { window.location.replace('case-spatial.html'); }
